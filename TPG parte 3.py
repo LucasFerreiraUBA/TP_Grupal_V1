@@ -1,6 +1,6 @@
 def contador_de_invocaciones(listaOG, listaLL):
     """
-    [Autor: Lucas M. Diana
+    [Autor: Lucas M. Diana]
     Genera un diccionario con la cantidad de referencias que realiza cada funcion
     
     para testear su funcionamiento, use:

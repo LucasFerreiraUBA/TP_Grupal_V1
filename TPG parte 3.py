@@ -1,9 +1,9 @@
 def contador_de_invocaciones(listaOG, listaLL):
-##  SOLO LLAMAR AL CONTADOR DE INVOCACIONES SI EL DIX NO EXISTE!!  
-##  listaLL = ["lista con todas las llamadas a otras funciones"]
-##  listaOG = ["lista con todas las funciones"]
+    """
+    [Autor: Lucas M. Diana
+    Genera un diccionario con la cantidad de referencias que realiza cada funcion
     
-    """para testear su funcionamiento, use:
+    para testear su funcionamiento, use:
 
         listaLL = [['funcion2()', 'funcion3()', 'funcion2()'],
                    ['funcion3()', 'funcion4()', 'funcion1()'],
@@ -17,8 +17,13 @@ def contador_de_invocaciones(listaOG, listaLL):
         dixTOT = {'funcion1()': [0, 2, 1, 0],
                   'funcion2()': [1, 0, 1, 1],
                   'funcion3()': [1, 1, 0, 0],
-                  'funcion4()': [0, 1, 0, 0]}    (es correcto!) """
+                  'funcion4()': [0, 1, 0, 0]}    (es correcto!)
+    """
     
+##  SOLO LLAMAR AL CONTADOR DE INVOCACIONES SI EL DIX NO EXISTE!!  
+##  listaLL = ["lista con todas las llamadas a otras funciones"]
+##  listaOG = ["lista con todas las funciones"]
+
     dixTOT = {}
     contPosLL = 0
     """ contPosLL determina que sublista de listaLL se usa

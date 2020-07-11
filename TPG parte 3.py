@@ -1,28 +1,34 @@
-def contador_de_invocaciones(listaOG, listaLL):
+def contador_de_invocaciones():
+##  SOLO LLAMAR AL CONTADOR DE INVOCACIONES SI EL DIX NO EXISTE!!  
+    
     """
     [Autor: Lucas M. Diana]
-    Genera un diccionario con la cantidad de referencias que realiza cada funcion
+    Genera un diccionario con la cantidad de referencias
+    que realiza cada funcion
     
     para testear su funcionamiento, use:
 
         listaLL = [['funcion2()', 'funcion3()', 'funcion2()'],
                    ['funcion3()', 'funcion4()', 'funcion1()'],
                    ['funcion1()', 'funcion2()'],
-                   ['funcion2()']]
+                   ['funcion4()']]
 
         listaOG = ['funcion1()', 'funcion2()', 'funcion3()', 'funcion4()']
 
-        devolvio: (esta suelta)
+    devolvio: (estan sueltos)
         
-        dixTOT = {'funcion1()': [0, 2, 1, 0],
-                  'funcion2()': [1, 0, 1, 1],
-                  'funcion3()': [1, 1, 0, 0],
-                  'funcion4()': [0, 1, 0, 0]}    (es correcto!) """
+        dixTOT = {'funcion1()': [0, 2, 1, 0],        llama 2v a 2 y 1v a 3
+                  'funcion2()': [1, 0, 1, 1],        llama 1v a 1, 3 y 4
+                  'funcion3()': [1, 1, 0, 0],        llama 1v a 1 y 2
+                  'funcion4()': [0, 0, 0, 1]}        llama 1v a 4
+                  
+        dixRec = {'funcion1()': ['O', 'X', 'X', 'O'],   llaman 2 y 3
+                  'funcion2()': ['X', 'O', 'X', 'O'],   llaman 1 y 3
+                  'funcion3()': ['X', 'X', 'O', 'O'],   llaman 1 y 2
+                  'funcion4()': ['O', 'X', 'O', 'X']}   llaman 2 y 4
+                                                      (es correcto!) """
     
-##  SOLO LLAMAR AL CONTADOR DE INVOCACIONES SI EL DIX NO EXISTE!!  
-##  listaLL = ["lista con todas las llamadas a otras funciones"]
-##  listaOG = ["lista con todas las funciones"]
-
+    listaOG, listaLL = generador_de_lista_de_funciones()    
     dixTOT = {}
     contPosLL = 0
     """ contPosLL determina que sublista de listaLL se usa
@@ -44,34 +50,45 @@ def contador_de_invocaciones(listaOG, listaLL):
                         no se la llama, queda el valor en cero]"""
                 if fc2 == call:                    
                     sublis[contPosS] += 1
-            del call
             contPosS += 1
         """cuando termino de chequear las llamadas de la primer funcion,
             la sumo al diccionario y paso a la siguiente"""
-        del fc2, contPosS
         contPosLL += 1        
         dixTOT[func] = sublis
     """Una vez calculadas todas las llamadas del programa,
-        devuelvo el diccionario"""
+        devuelvo el diccionario
+
+        ((Hasta aca chequeo llamadas realizadas))
+
+        Ahora determino que funcion depende de cada una
+        (llamadas recividas)"""
+
+    dixRec = {}
+    pos = 0
+    for recive in listaOG:
+        listaRec = []
+        for envia in dixTOT:
+            if dixTOT[envia][pos] > 0:
+                listaRec.append('X')
+            else:
+                listaRec.append('0')
+        dixRec[recive] = listaRec
+        pos += 1
+
 ##  SOLO LLAMAR AL CONTADOR DE INVOCACIONES SI EL DIX NO EXISTE!!
-    del func, sublis, contPosLL
-    return dixTOT
+    return dixTOT, dixRec
 
-
-def procesador_de_csv():
+def generador_de_lista_de_funciones():
     """
-            [Autor: Lucas M. Diana]
-            Genera una lista con todas las funciones que existen
-            dentro de fuente_unico.csv
+    [Autor: Lucas M. Diana]
+    Genera una lista con todas las funciones que existen dentro de fuente_unico.csv
 
-            para testear su funcionamiento,
-            use este archivo guardado como .csv
-
-            devolvio:
+    para testear su funcionamiento, use este mismo archivo guardado como .csv
+    devolvio:
             
-            listaOG = ['contador_de_invocaciones',
-            'generador_de_lista_de_funciones']       [es correcto! (x ahora)]
-    """
+    listaOG = ['contador_de_invocaciones', 'generador_de_lista_de_funciones']
+
+            [es correcto! (x ahora)]     """
 
     fuente_unico =  open('fuente_unico.csv','r')
     listaFuncP = []
@@ -79,14 +96,43 @@ def procesador_de_csv():
     for i in fuente_unico:
         if i.startswith("def "):
             listaFuncP.append(i.replace('def ',''))
-    del i
     for j in listaFuncP:
         paren = j.find('(')
         funcion = j[:paren]
         listaOG.append(funcion)
-        del paren, funcion, j
-    del listaFuncP
     """Hasta aca genera la lista de funciones del programa
         Continuo con la lista de llamadas"""
+    fuente_unico.close()
+    fuente_unico =  open('fuente_unico.csv','r')
+    listaFParcial = []
     listaLL = []
+    for a in fuente_unico:
+        if a.startswith("def ") and listaFParcial != []:
+            sublistaLL = procesar_listaFP(listaFParcial)
+            listaLL.append(sublistaLL)
+            listaFParcial = []
+            listaFParcial.append(a)
+        elif a.startswith("def "):
+            listaFParcial.append(a)
+        else:
+            listaFParcial.append(a)
+    sublistaLL = procesar_listaFP(listaFParcial)
+    listaLL.append(sublistaLL)
     return listaOG, listaLL
+
+def procesar_listaFP(listaFParcial):
+    sublistaLL = []
+    for b in listaFParcial:
+        llamada = None
+        if b.endswith(')'):
+            paren = b.find('(')
+            if '= ' in b:
+                igual = b.find('= ') + 2
+            elif '=' in b:
+                igual = b.find('=') + 1
+            else:
+                igual = 0
+            llamada = b[igual:paren]
+            if llamada in listaOG:
+                sublistaLL.append(llamada)
+    return sublistaLL

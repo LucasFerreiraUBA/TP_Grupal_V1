@@ -1,68 +1,38 @@
-def contador_de_invocaciones():
-##  SOLO LLAMAR AL CONTADOR DE INVOCACIONES SI EL DIX NO EXISTE!!  
-    
+import os
+
+def contador_de_invocaciones(listaOG): 
     """
     [Autor: Lucas M. Diana]
     Genera un diccionario con la cantidad de referencias
-    que realiza cada funcion
+    que realiza cada funcion.
     
-    para testear su funcionamiento, use:
-
-        listaLL = [['funcion2()', 'funcion3()', 'funcion2()'],
-                   ['funcion3()', 'funcion4()', 'funcion1()'],
-                   ['funcion1()', 'funcion2()'],
-                   ['funcion4()']]
-
-        listaOG = ['funcion1()', 'funcion2()', 'funcion3()', 'funcion4()']
-
-    devolvio: (estan sueltos)
-        
-        dixTOT = {'funcion1()': [0, 2, 1, 0],        llama 2v a 2 y 1v a 3
-                  'funcion2()': [1, 0, 1, 1],        llama 1v a 1, 3 y 4
-                  'funcion3()': [1, 1, 0, 0],        llama 1v a 1 y 2
-                  'funcion4()': [0, 0, 0, 1]}        llama 1v a 4
-                  
-        dixRec = {'funcion1()': ['O', 'X', 'X', 'O'],   llaman 2 y 3
-                  'funcion2()': ['X', 'O', 'X', 'O'],   llaman 1 y 3
-                  'funcion3()': ['X', 'X', 'O', 'O'],   llaman 1 y 2
-                  'funcion4()': ['O', 'X', 'O', 'X']}   llaman 2 y 4
-                                                      (es correcto!) """
-    
-    listaOG, listaLL = generador_de_lista_de_funciones()    
+    """
+      
     dixTOT = {}
     contPosLL = 0
-    """ contPosLL determina que sublista de listaLL se usa
-        hay que generar una llave para cada funcion"""
     for func in listaOG:
         dixTOT[func] = []     
         contPosS = 0
         sublis = []
-        """contPosS determina a que funcion(llamada) se refiere el valor
-        hay que generar una sublista para cada llave en el dix
-        (listaLL tiene las llamadas literales, no las cant)
-        agarrar cada funcion y comparar con la sublista"""
         for fc2 in listaOG:
-            sublis.append(0)
-            """evaluo cada funcion(llamada)..."""            
+            sublis.append(0)      
             sublis[contPosS] = 0            
             for call in listaLL[contPosLL]:
-                """... con cada llamada [si la funcion(llamada)
-                        no se la llama, queda el valor en cero]"""
                 if fc2 == call:                    
                     sublis[contPosS] += 1
             contPosS += 1
-        """cuando termino de chequear las llamadas de la primer funcion,
-            la sumo al diccionario y paso a la siguiente"""
         contPosLL += 1        
         dixTOT[func] = sublis
-    """Una vez calculadas todas las llamadas del programa,
-        devuelvo el diccionario
+    return dixTOT
 
-        ((Hasta aca chequeo llamadas realizadas))
-
-        Ahora determino que funcion depende de cada una
-        (llamadas recividas)"""
-
+def contador_de_llamadas(listaOG, listaLL): 
+    """
+    [Autor: Lucas M. Diana]
+    Genera un diccionario que marca donde es referenciada
+    cada funcion.
+    
+    """
+    
     dixRec = {}
     pos = 0
     for recive in listaOG:
@@ -71,24 +41,19 @@ def contador_de_invocaciones():
             if dixTOT[envia][pos] > 0:
                 listaRec.append('X')
             else:
-                listaRec.append('0')
+                listaRec.append('O')
         dixRec[recive] = listaRec
         pos += 1
+    return dixRec
 
-##  SOLO LLAMAR AL CONTADOR DE INVOCACIONES SI EL DIX NO EXISTE!!
-    return dixTOT, dixRec
 
 def generador_de_lista_de_funciones():
     """
     [Autor: Lucas M. Diana]
-    Genera una lista con todas las funciones que existen dentro de fuente_unico.csv
-
-    para testear su funcionamiento, use este mismo archivo guardado como .csv
-    devolvio:
-            
-    listaOG = ['contador_de_invocaciones', 'generador_de_lista_de_funciones']
-
-            [es correcto! (x ahora)]     """
+    Genera una lista con todas las funciones que existen
+    dentro de fuente_unico.csv
+    
+    """
 
     fuente_unico =  open('fuente_unico.csv','r')
     listaFuncP = []
@@ -100,9 +65,16 @@ def generador_de_lista_de_funciones():
         paren = j.find('(')
         funcion = j[:paren]
         listaOG.append(funcion)
-    """Hasta aca genera la lista de funciones del programa
-        Continuo con la lista de llamadas"""
     fuente_unico.close()
+    return listaOG
+
+def generador_de_listas_de_llamadas():
+    """
+    [Autor: Lucas M. Diana]
+    Genera una lista para cada funcion con todas las llamadas
+    que existen dentro. Estas se incorporan a una lista de listas.
+    
+    """
     fuente_unico =  open('fuente_unico.csv','r')
     listaFParcial = []
     listaLL = []
@@ -112,15 +84,23 @@ def generador_de_lista_de_funciones():
             listaLL.append(sublistaLL)
             listaFParcial = []
             listaFParcial.append(a)
-        elif a.startswith("def "):
-            listaFParcial.append(a)
         else:
             listaFParcial.append(a)
+    
+##  Para la ultima, podria resolverse con eof
+    
     sublistaLL = procesar_listaFP(listaFParcial)
     listaLL.append(sublistaLL)
-    return listaOG, listaLL
+    
+    return listaLL
 
 def procesar_listaFP(listaFParcial):
+    """
+    [Autor: Lucas M. Diana]
+    Filtra la lista con cada linea de codigo de una funcion
+    y devuelve una lista que contiene solo las llamadas de la funcion
+    
+    """
     sublistaLL = []
     for b in listaFParcial:
         llamada = None
@@ -136,3 +116,97 @@ def procesar_listaFP(listaFParcial):
             if llamada in listaOG:
                 sublistaLL.append(llamada)
     return sublistaLL
+
+def txt_maker(listaOG, dixTOT, dixRec):
+    """
+    [Autor: Lucas M. Diana]
+    Genera el archivo "analizador.txt"
+    
+    """
+
+##  Genera la primera linea y a escribe en el txt
+    
+    linea = ''
+    longitud = 0
+    for funcion in listaOG:
+        if len(funcion) > longitud:
+            longitud = len(funcion)
+    linea.append('|\t{0:{1}} ').format('Funcion/es', longitud)
+    contador = 0
+    for funcion in listaOG:
+        linea.append('| {} ').format(contador)
+        contador += 1
+    linea.append('|\n')
+    analizador = open(analizador.txt, 'w+')
+    analizador.write(linea)
+
+##  Genera el separador de renglones"""
+    
+    separador = ''
+    for i in len(linea):
+        separador.append('-')
+    separador.append('\n')
+    
+##  Genera y suma el resto de las lineas
+##  y los separadores de renglones que correspondan.
+    
+    for funcion in listaOG:
+        analizador.write(separador)
+        linea = ''
+        linea.append('|\t{0:{1}}').format(funcion, longitud)
+        contador = 0
+        for funcion2 in listaOG:
+            if dixTOT[funcion][contador] > 0 and dixRec[funcion][contador] == 'X':
+                linea.append('|{0}/{1}').format(dixTOT[funcion][contador], dixRec[funcion][contador])
+            elif dixTOT[funcion][contador] > 0:
+                linea.append('| {} ').format(dixTOT[funcion][contador])
+            elif dixRec[funcion][contador] == 'X':
+                linea.append('| {} ').format(dixRec[funcion][contador])
+            else:
+                linea.append('|   ')
+            contador += 1
+        analizador.write(linea)
+    analizador.write(separador)
+    analizador.close()
+
+def printer():
+    """
+    [Autor: Lucas M. Diana]
+    Imprime los contenidos del archivo "analizador.txt" en la pantalla.
+    
+    """
+    if os.isfile(os.getcwd()\\analizador.txt):
+        print('analizador.txt existe, leyendo...')
+        os.system('cls')
+        analizador = open(analizador.txt, 'r')
+    else:
+        print('analizador.txt no existe, creando...')
+        txt_maker()
+        print('analizador.txt creado, leyendo...')
+        os.system('cls')
+        analizador = open(analizador.txt, 'r')
+    for i in analizador:
+        linea = ''
+        linea.append(i)
+        if linea.endswith('\n'):
+            print(linea)
+    analizador.close()
+
+"""
+Ejecucion del modulo
+
+listaOG = generador_de_lista_de_funciones()
+listaLL = generador_de_listas_de_llamadas() 
+dixTOT = contador_de_invocaciones(listaOG)
+dixRec = contador_de_llamadas(listaOG, listaLL)
+txt_maker(listaOG, dixTOT, dixRec)
+printer()
+
+
+Falta un metodo para volver al programa principal
+Chequear si es mejor dejar que las funciones se invoquen entre si
+O ejecutar el modulo en su totalidad.
+Renombrar todas las variables para hacer mas legible el codigo.
+Ver si es posible reducir la cantidad de 'for's y/o crear una funcion
+que pueda resolver los casos de 'for' anidados
+"""

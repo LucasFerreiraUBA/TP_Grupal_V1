@@ -1,0 +1,4 @@
+C:\Users\Administrador\Desktop\TP_Grupal_V1\main.py
+C:\Users\Administrador\Desktop\TP_Grupal_V1\modulo1.py
+C:\Users\Administrador\Desktop\TP_Grupal_V1\app_matematica.py
+C:\Users\Administrador\Desktop\TP_Grupal_V1\lib_matematica.py

@@ -4,6 +4,7 @@
 [Autor: Lucas Ferreira]
 """
 import modulo1, An_Reu_Cod
+
 def main():
     programas = modulo1.leer_programas()
     tupla_completa = modulo1.manejar_contenido(programas)

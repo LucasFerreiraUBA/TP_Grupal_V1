@@ -8,12 +8,12 @@ def generador_de_lista_de_funciones():
     """
     fuente_unico =  open('fuente_unico.csv','r')
     listaOG = []
-    renglon = tuple(fuente_unico.readline().split(","))
+    renglon = tuple(fuente_unico.readline().split(";"))
     while renglon != None:
         funcion = renglon[0]
         if funcion != '':
             listaOG.append(funcion)
-            renglon = tuple(fuente_unico.readline().split(","))
+            renglon = tuple(fuente_unico.readline().split(";"))
         else:
             renglon = None
     fuente_unico.close()
@@ -30,13 +30,13 @@ def generador_de_listas_de_llamadas(listaOG):
     """
     fuente_unico =  open('fuente_unico.csv','r')
     listaLL = []
-    renglon = tuple(fuente_unico.readline().split(","))
+    renglon = tuple(fuente_unico.readline().split(";"))
     while renglon != None:
         funcion = renglon[0]
         if funcion != '':
             sublistaLL = procesar_listaFP(renglon, listaOG)
             listaLL.append(sublistaLL)
-            renglon = tuple(fuente_unico.readline().split(","))
+            renglon = tuple(fuente_unico.readline().split(";"))
         else:
             del funcion
             renglon = None
@@ -211,6 +211,14 @@ def txt_maker(listaOG, dixTOT, dixRec):
     del funcion, funcion2, linea, contador, longitud, n_funcion, tab, analiz
 
 def suma_inv(dixTOT, contador):
+    """
+    [Autor: Lucas M. Diana]
+    [Requisitos: dixTOT - un diccionario con la cantidad de referencias
+                          que realiza cada funcion.
+                 contador - un contador usado para determinar
+                            la funcion que se evalua.]
+    [Ayuda: suma el total de llamadas recividas por una funcion.]
+    """
     suma_total = 0
     for funcion in dixTOT:
         suma_total += dixTOT[funcion][contador]

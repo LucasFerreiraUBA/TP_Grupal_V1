@@ -6,7 +6,7 @@ def leer_programas():
     """
     programa_num = 0
     diccionario_salida = {}
-    with open('programas.txt') as p:
+    with open('programas.txt', encoding='utf-8') as p:
         renglon = None
         while renglon != '':
             renglon = p.readline()
@@ -25,7 +25,7 @@ def manejar_contenido(direcciones):
     lista_final = []
     #bucle que va abriendo cada direccion guardada
     for D in direcciones:
-        with open(direcciones[D]) as p:
+        with open(direcciones[D], encoding='utf-8') as p:
             programa = p.read().split('\n')
         nombre_modulo = direcciones[D].split('\\')[-1]
         for funcion in ordenar_contenido(programa,nombre_modulo):
@@ -84,19 +84,20 @@ def ordenar_contenido(programa,nombre_mod):
             else:
                 comentarios.append(linea)
         elif linea[0] == '#':
-            comentarios.append(linea)
+            if comentarios != []:
+                comentarios.append(linea)
         # reconoce si está creando una funcion y genera la sublista correspondiente ademas de almacenar el codigo y comentarios guardados, en la funcion anterior si la hay
         elif linea.split()[0] == 'def':
             #nombre es una lista de nombre_funcion/parametros
-            nombre = linea.split()[1].split('(')
+            nombre = linea.split('def ')[1].split('(')
             if len(lista_mod) > 0:
                 lista_mod[-1].append(tuple(codigo))
                 codigo = []
                 try:
                     if '[autor:' not in comentarios[0].lower():
-                        comentarios.insert(0,'ausente')
+                        comentarios.insert(0,'[Autor: ausente]')
                 except IndexError:
-                    comentarios.append('ausente')
+                    comentarios.append('[Autor: ausente]')
                 lista_mod[-1].append(tuple(comentarios))
                 comentarios = []
             lista_mod.append([nombre[0],'('+nombre[1].strip(':'), nombre_mod])
@@ -104,9 +105,9 @@ def ordenar_contenido(programa,nombre_mod):
             codigo.append(linea)
     #revisa si hay un autor, si no lo hay, agrega ausente en el espacio correspondiente
     if len(comentarios) == 0:
-        comentarios.append('ausente')
+        comentarios.append('[Autor: ausente]')
     elif '[autor:' not in comentarios[0].lower():
-        comentarios.insert(0,'ausente')
+        comentarios.insert(0,'[Autor: ausente]')
     lista_mod[-1].append(tuple(codigo))
     lista_mod[-1].append(tuple(comentarios))
     return lista_mod
@@ -122,24 +123,24 @@ def generar_csv(tupla):
     fuente_unico = ''
     comentarios = ''
     for funcion in tupla:
-        fuente_unico += funcion[0] + ',' 
-        comentarios += funcion[0] + ','
-        fuente_unico += funcion[1] + ','
-        comentarios +=  funcion[4][0] + ','
-        fuente_unico += funcion[2].strip('.py') + ','
+        fuente_unico += funcion[0] + ';' 
+        comentarios += funcion[0] + ';'
+        fuente_unico += funcion[1] + ';'
+        comentarios +=  funcion[4][0] + ';'
+        fuente_unico += funcion[2].strip('.py') + ';'
         #agrega todo el codigo al final de fuente_unico, separando cada linea por una coma
         for linea in funcion[3]:
-            fuente_unico += linea + ','
+            fuente_unico += linea + ';'
                                                 #lo hace desde la primera posicion para excluir al autor en los comentarios
         comentario_separado = separar_comentario(funcion[4][1:])
         try:
-            comentarios += comentario_separado[0] +','
+            comentarios += comentario_separado[0] +';'
         except TypeError:
-            comentarios+=','
+            comentarios+=';'
         try:
-            comentarios += comentario_separado[1] + ','
+            comentarios += comentario_separado[1] + ';'
         except TypeError:
-            comentarios += ','
+            comentarios += ';'
         fuente_unico += '\n'
         comentarios += '\n'
     return (fuente_unico,comentarios)
@@ -159,12 +160,9 @@ def separar_comentario(comentarios):
                 es_importante = True
             comentario_importante += linea
         elif es_importante == False:
-            comentario_normal += linea + ','
+            comentario_normal += linea + ';'
         elif es_importante:
             if ']' in linea:
                 es_importante = False
             comentario_importante += linea
     return(comentario_importante,comentario_normal)
-    
-
-                

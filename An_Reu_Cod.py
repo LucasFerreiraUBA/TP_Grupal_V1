@@ -158,9 +158,11 @@ def txt_maker(listaOG, dixTOT, dixRec):
         tab += 1
     tab = len(str(tab))
     if len('Funcion/es') > longitud:
-        longitud = len(funcion)
+        longitud = len('Funcion/es')
+    if len('Total de Invocaciones') > longitud:
+        longitud = len('Total de Invocaciones')
     longitud += 1
-    linea += ('|{2:{3}} {0:{1}}').format('Funcion/es', longitud, ' ', tab + 1)
+    linea += ('|{0:{1}} {2:{3}}').format(' ', tab + 1,'Funcion/es', longitud)
     contador_columnas = 0
     for funcion in listaOG:
         linea += ('| {} ').format(contador_columnas)
@@ -195,8 +197,24 @@ def txt_maker(listaOG, dixTOT, dixRec):
         linea += ('|\n')
         analiz.write(linea)
     analiz.write(separador)
+    linea = ''
+    linea += ('|{0:{1}} {2:{3}}').format(' ', tab + 1,'Total de Invocaciones', longitud)
+    contador = 0
+    for funcion in listaOG:
+        suma_tot = suma_inv(dixTOT, contador)
+        linea += ('| {0:{1}} ').format(suma_tot, len(str(contador)))
+        contador += 1
+    linea += ('|\n')
+    analiz.write(linea)
+    analiz.write(separador)
     analiz.close()
     del funcion, funcion2, linea, contador, longitud, n_funcion, tab, analiz
+
+def suma_inv(dixTOT, contador):
+    suma_total = 0
+    for funcion in dixTOT:
+        suma_total += dixTOT[funcion][contador]
+    return suma_total
 
 def reutilizacion_de_codigo():
     """
@@ -206,12 +224,12 @@ def reutilizacion_de_codigo():
             En caso de no existir, crea el archivo txt y luego lo imprime.]
     """
     if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
-        print('analizador.txt existe, leyendo...')
+        print('\nanalizador.txt existe, leyendo...')
         time.sleep(3)
         print()
         analizador = open("{}\\analizador.txt".format(os.getcwd()), 'r')
     else:
-        print('analizador.txt no existe, creando...')
+        print('\nanalizador.txt no existe, creando...')
         listaOG = generador_de_lista_de_funciones()
         listaLL = generador_de_listas_de_llamadas(listaOG)
         dixTOT = contador_de_invocaciones(listaOG, listaLL)

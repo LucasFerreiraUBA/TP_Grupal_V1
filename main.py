@@ -1,4 +1,4 @@
-import os, modulo1, An_Reu_Cod, crear_arch_datos_funciones, crear_panel_funciones
+import os, modulo1, An_Reu_Cod,TPG_parte_5,corte_control, crear_arch_datos_funciones, crear_panel_funciones
 
 def generador_fuente_comentarios():
     """
@@ -31,6 +31,7 @@ def main():
                 panel_general()
                 arch_datos = open("panel_general.csv", "r")
                 crear_panel_funciones.mostrar_tabla_funciones(arch_datos)
+                input('\nPulse ENTER para finalizar.\n')
                 arch_datos.close()
                 valor = None
             """if valor == '2':
@@ -38,13 +39,16 @@ def main():
                 valor = None"""
             if valor == '3':
                 An_Reu_Cod.reutilizacion_de_codigo()
+                input('\nPulse ENTER para finalizar.\n')
                 valor = None
             """if valor == '4':
                 modulo 4
-                valor = None
-            if valor == '5':
-                modulo 5
                 valor = None"""
+            if valor == '5':
+                TPG_parte_5.ejecutar()
+                corte_control.main_control()
+                input('\nPulse ENTER para finalizar.\n')
+                valor = None
             if valor == '6':
                 print('''\nEsta opcion eliminara todos los archivos generados por el programa.
 Luego, genera los archivos fuente_unico y comentarios que utilizan
@@ -111,6 +115,6 @@ def panel_general():
         arch_funcion_codigo.close()
         arch_funcion_coment.close()
         arch_datos_final.close()
-
 generador_fuente_comentarios()
 main()
+

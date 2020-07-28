@@ -1,4 +1,4 @@
-import os, time
+import os
 
 def generador_de_lista_de_funciones():
     """
@@ -8,12 +8,12 @@ def generador_de_lista_de_funciones():
     """
     fuente_unico =  open('fuente_unico.csv','r')
     listaOG = []
-    renglon = tuple(fuente_unico.readline().split(";"))
+    renglon = fuente_unico.readline().split(",")
     while renglon != None:
         funcion = renglon[0]
         if funcion != '':
             listaOG.append(funcion)
-            renglon = tuple(fuente_unico.readline().split(";"))
+            renglon = fuente_unico.readline().split(",")
         else:
             renglon = None
     fuente_unico.close()
@@ -30,13 +30,13 @@ def generador_de_listas_de_llamadas(listaOG):
     """
     fuente_unico =  open('fuente_unico.csv','r')
     listaLL = []
-    renglon = tuple(fuente_unico.readline().split(";"))
+    renglon = fuente_unico.readline().split(",")
     while renglon != None:
         funcion = renglon[0]
         if funcion != '':
             sublistaLL = procesar_listaFP(renglon, listaOG)
             listaLL.append(sublistaLL)
-            renglon = tuple(fuente_unico.readline().split(";"))
+            renglon = fuente_unico.readline().split(",")
         else:
             del funcion
             renglon = None
@@ -177,26 +177,7 @@ def txt_maker(listaOG, dixTOT, dixRec):
     analiz = open("{}\\analizador.txt".format(os.getcwd()), 'w+')
     analiz.write(separador)
     analiz.write(linea)
-    n_funcion = 0
-    for funcion in listaOG:
-        analiz.write(separador)
-        linea = ''
-        linea += ('|{0:{1}}) {2:{3}}').format(n_funcion, tab, funcion, longitud)
-        n_funcion += 1
-        contador = 0
-        for funcion2 in listaOG:
-            if dixTOT[funcion][contador] > 0 and dixRec[funcion][contador] == 'X':
-                linea += ('|{0:{1}}').format('{0}/{1}'.format(dixTOT[funcion][contador], dixRec[funcion][contador]), len(str(contador)))
-            elif dixTOT[funcion][contador] > 0:
-                linea += ('| {0:{1}} ').format(dixTOT[funcion][contador], len(str(contador)))
-            elif dixRec[funcion][contador] == 'X':
-                linea += ('| {0:{1}} ').format(dixRec[funcion][contador], len(str(contador)))
-            else:
-                linea += ('| {0:{1}} ').format('', len(str(contador)))
-            contador += 1
-        linea += ('|\n')
-        analiz.write(linea)
-    analiz.write(separador)
+    escritor(analiz, listaOG, separador, tab, longitud, dixTOT, dixRec)
     linea = ''
     linea += ('|{0:{1}} {2:{3}}').format(' ', tab + 1,'Total de Invocaciones', longitud)
     contador = 0
@@ -208,7 +189,31 @@ def txt_maker(listaOG, dixTOT, dixRec):
     analiz.write(linea)
     analiz.write(separador)
     analiz.close()
-    del funcion, funcion2, linea, contador, longitud, n_funcion, tab, analiz
+    del linea, contador, longitud, tab, analiz
+
+def escritor(analiz, listaOG, separador, tab, longitud, dixTOT, dixRec):
+    n_funcion = 0
+    for funcion in listaOG:
+        analiz.write(separador)
+        linea = ''
+        linea += ('|{0:{1}}) {2:{3}}').format(n_funcion, tab, funcion, longitud)
+        n_funcion += 1
+        contador = 0
+        for funcion2 in listaOG:
+            if dixTOT[funcion][contador] > 0 and dixRec[funcion][contador] == 'X':
+                linea += ('|{0:{1}} ').format('{0}/{1}'.format(dixTOT[funcion][contador], dixRec[funcion][contador]), len(str(contador)))
+            elif dixTOT[funcion][contador] > 0:
+                linea += ('| {0:{1}} ').format(dixTOT[funcion][contador], len(str(contador)))
+            elif dixRec[funcion][contador] == 'X':
+                linea += ('| {0:{1}} ').format(dixRec[funcion][contador], len(str(contador)))
+            else:
+                linea += ('| {0:{1}} ').format('', len(str(contador)))
+            contador += 1
+        linea += ('|\n')
+        analiz.write(linea)
+    analiz.write(separador)
+    del funcion, funcion2, contador, n_funcion
+    return
 
 def suma_inv(dixTOT, contador):
     """
@@ -232,21 +237,18 @@ def reutilizacion_de_codigo():
             En caso de no existir, crea el archivo txt y luego lo imprime.]
     """
     if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
-        print('\nanalizador.txt existe, leyendo...')
-        time.sleep(3)
+        print('\nanalizador.txt existe, leyendo...\n')
         print()
         analizador = open("{}\\analizador.txt".format(os.getcwd()), 'r')
     else:
-        print('\nanalizador.txt no existe, creando...')
+        print('\nanalizador.txt no existe, creando...\n')
         listaOG = generador_de_lista_de_funciones()
         listaLL = generador_de_listas_de_llamadas(listaOG)
         dixTOT = contador_de_invocaciones(listaOG, listaLL)
         dixRec = contador_de_llamadas(listaOG, dixTOT)
         txt_maker(listaOG, dixTOT, dixRec)
         del listaOG, listaLL, dixRec, dixTOT
-        time.sleep(2)
-        print('analizador.txt creado, leyendo...')
-        time.sleep(1)
+        print('analizador.txt creado, leyendo...\n')
         print()
         analizador = open("{}\\analizador.txt".format(os.getcwd()), 'r')
     print(analizador.read())

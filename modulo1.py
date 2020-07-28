@@ -1,4 +1,3 @@
-
 def leer_programas():
     """
     [Autor: Lucas Ferreira]
@@ -123,24 +122,24 @@ def generar_csv(tupla):
     fuente_unico = ''
     comentarios = ''
     for funcion in tupla:
-        fuente_unico += funcion[0] + ';' 
-        comentarios += funcion[0] + ';'
-        fuente_unico += funcion[1] + ';'
-        comentarios +=  funcion[4][0] + ';'
-        fuente_unico += funcion[2].strip('.py') + ';'
+        fuente_unico += funcion[0] + ',' 
+        comentarios += funcion[0] + ','
+        fuente_unico += funcion[1] + ','
+        comentarios +=  funcion[4][0] + ','
+        fuente_unico += funcion[2].strip('.py') + ','
         #agrega todo el codigo al final de fuente_unico, separando cada linea por una coma
         for linea in funcion[3]:
-            fuente_unico += linea + ';'
+            fuente_unico += linea + ','
                                                 #lo hace desde la primera posicion para excluir al autor en los comentarios
         comentario_separado = separar_comentario(funcion[4][1:])
         try:
-            comentarios += comentario_separado[0] +';'
+            comentarios += comentario_separado[0] +','
         except TypeError:
-            comentarios+=';'
+            comentarios+=','
         try:
-            comentarios += comentario_separado[1] + ';'
+            comentarios += comentario_separado[1] + ','
         except TypeError:
-            comentarios += ';'
+            comentarios += ','
         fuente_unico += '\n'
         comentarios += '\n'
     return (fuente_unico,comentarios)
@@ -160,7 +159,7 @@ def separar_comentario(comentarios):
                 es_importante = True
             comentario_importante += linea
         elif es_importante == False:
-            comentario_normal += linea + ';'
+            comentario_normal += linea + ','
         elif es_importante:
             if ']' in linea:
                 es_importante = False

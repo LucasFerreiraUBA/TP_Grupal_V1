@@ -1,11 +1,11 @@
-"""
-
-[Ayuda:llama a las funciones desde que lee programas txt hasta que las convierte en csv]
-[Autor: Lucas Ferreira]
-"""
 import os, modulo1, An_Reu_Cod, crear_arch_datos_funciones, crear_panel_funciones
 
-def main():
+def generador_fuente_comentarios():
+    """
+    [Autor: Lucas Ferreira]
+    [Ayuda: Llama a las funciones desde que lee programas txt
+            hasta que las convierte en csv]
+    """
     programas = modulo1.leer_programas()
     tupla_completa = modulo1.manejar_contenido(programas)
     archivos = modulo1.generar_csv(tupla_completa)
@@ -14,7 +14,7 @@ def main():
     with open('comentarios.csv','w') as c:
         c.write(archivos[1])
 
-def menu():
+def main():
     """
     [Autor: Lucas M. Diana]
     [Ayuda: Muestra un menu y espera a la instruccion del usuario.
@@ -61,19 +61,19 @@ sin tener que eliminar los archivos correspondientes a los analisis anteriores.'
                         os.remove("{}\\panel_general.csv".format(os.getcwd()))
                     if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
                         os.remove("{}\\analizador.txt".format(os.getcwd()))
+                    generador_fuente_comentarios()
                     main()
-                    menu()
         elif valor not in '0,1,2,3,4,5,6'.split(','):
-            print('\nEl valor registrado no es un numero!')
+            print('\nEl valor registrado no es un numero permitido!')
             valor = None
         else:
-            print('Desea eliminar los archivos generados por nuestro programa?')
-            print('Esta opcion no eliminara los archivos "fuente_unico.csv" y "comentarios.csv"')
+            print('\nDesea eliminar los archivos generados por nuestro programa? (S/N)')
+            print('Esto no eliminara los archivos "fuente_unico" y "comentarios"\n')
             sn = 'a'
             while sn not in 'sSnN':
-                sn = input('Desea continuar? (S/N) ')
+                sn = input()
             if sn.lower() == 's':
-                print('\nEliminando...')
+                print('\nEliminando...\n')
                 if os.path.isfile("{}\\panel_general.csv".format(os.getcwd())):
                     os.remove("{}\\panel_general.csv".format(os.getcwd()))
                 if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
@@ -86,17 +86,17 @@ def descripcion_menu():
             del menu principal.]
     """
     print('\nIndique con un numero la funcion del programa que desea ver:')
-    print('1. Panel General de Funciones')
-    print('2. Consulta de Funciones')
-    print('3. Analizador de Reutilización de Código')
-    print('4. Árbol de Invocación')
-    print('5. Información por Desarrollador')
-    print('6. Reanalizar los programas')
-    print('0. Cerrar programa\n')
+    print('1. Panel General de Funciones.')
+    print('2. Consulta de Funciones.')
+    print('3. Analizador de Reutilización de Código.')
+    print('4. Árbol de Invocación.')
+    print('5. Información por Desarrollador.')
+    print('6. Reanalizar los programas.')
+    print('0. Cerrar programa.\n')
 
 def panel_general():
     """
-    [Autor: Lucas M. Diana]
+    [Autor: Javier Acho]
     [Ayuda: Ejecuta el modulo crear_arch_datos_funciones solo
             si el archivo 'panel_general.csv' no existe]
     """
@@ -112,5 +112,5 @@ def panel_general():
         arch_funcion_coment.close()
         arch_datos_final.close()
 
+generador_fuente_comentarios()
 main()
-menu()

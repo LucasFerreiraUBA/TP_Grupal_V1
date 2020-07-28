@@ -1,0 +1,56 @@
+ 
+ [Autor: ausente]
+   
+     Funciones                       lineas                  
+   ejecutar -  3   
+   escritor -  40   
+2 Funciones - lineas:  43 6.94 % 
+======================================================= 
+ 
+ [Autor: Javier Acho]
+   
+     Funciones                       lineas                  
+   panel_general -  18   
+1 Funciones - lineas:  18 2.9 % 
+======================================================= 
+ 
+ [Autor: Lucas M. Diana]
+   
+     Funciones                       lineas                  
+   contador_de_invocaciones -  24   
+   contador_de_llamadas -  18   
+   descripcion_menu -  9   
+   generador_de_lista_de_funciones -  16   
+   generador_de_listas_de_llamadas -  19   
+   main -  67   
+   procesar_listaFP -  30   
+   reutilizacion_de_codigo -  31   
+   suma_inv -  6   
+9 Funciones - lineas:  220 35.48 % 
+======================================================= 
+ 
+ [Autor: Lucas Ferreira]
+   
+     Funciones                       lineas                  
+   autor_funcion_valor -  5   
+   contar_total -  14   
+   corte_control -  36   
+   crear_archivo -  13   
+   escribir -  22   
+   generador_fuente_comentarios -  10   
+   generar_csv -  34   
+   imprimir -  15   
+   insercion -  11   
+   leer -  7   
+   leer_programas -  12   
+   main_control -  10   
+   manejar_contenido -  12   
+   ordenar_contenido -  50   
+   ordenar_por_autor -  29   
+   separar_comentario -  18   
+   total_autor -  32   
+   total_funcion -  9   
+18 Funciones - lineas:  339 54.68 % 
+======================================================= 
+ 
+ Funciones - lineas:  620   

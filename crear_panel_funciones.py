@@ -18,7 +18,3 @@ def mostrar_tabla_funciones(arch_datos_funciones):
 		print(cadena)
 
 #------------------------------------------------------------------------------
-
-arch_datos = open("panel_general.csv", "r")
-mostrar_tabla_funciones(arch_datos)
-arch_datos.close()

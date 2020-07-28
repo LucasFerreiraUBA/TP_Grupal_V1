@@ -209,14 +209,3 @@ def cargar_datos(arch_codigo, arch_comentarios, arch_reporte, ultimo):
         funcion_com, autor, manual, coment = procesar_comentarios(reg_coment, final)
 
 #------------------------------------------------------------------------------
-
-f_error = "AAAAAA"
-arch_funcion_codigo = open("fuente_unico.csv", "r")
-arch_funcion_coment = open("comentarios.csv", "r")
-arch_datos_final = open("panel_general.csv", "w")
-
-cargar_datos(arch_funcion_codigo, arch_funcion_coment, arch_datos_final, f_error)
-
-arch_funcion_codigo.close()
-arch_funcion_coment.close()
-arch_datos_final.close()

@@ -31,7 +31,6 @@ def main():
                 panel_general()
                 arch_datos = open("panel_general.csv", "r")
                 crear_panel_funciones.mostrar_tabla_funciones(arch_datos)
-                input('\nPulse ENTER para finalizar.\n')
                 arch_datos.close()
                 valor = None
             """if valor == '2':
@@ -39,7 +38,6 @@ def main():
                 valor = None"""
             if valor == '3':
                 An_Reu_Cod.reutilizacion_de_codigo()
-                input('\nPulse ENTER para finalizar.\n')
                 valor = None
             """if valor == '4':
                 modulo 4
@@ -47,7 +45,6 @@ def main():
             if valor == '5':
                 TPG_parte_5.ejecutar()
                 corte_control.main_control()
-                input('\nPulse ENTER para finalizar.\n')
                 valor = None
             if valor == '6':
                 print('''\nEsta opcion eliminara todos los archivos generados por el programa.

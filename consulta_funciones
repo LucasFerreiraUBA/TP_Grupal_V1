@@ -1,0 +1,185 @@
+
+def leer_comentario(archivo):
+    """
+        [Autor: Julian Uño]
+        [Ayuda: Lee por linea del archivo recibido, y devuelve el registro
+        sin salto de linea y divido por ',' en tres campos , si no devuelve vacio, solo
+        separa tres campos]
+    """
+    
+    linea = archivo.readline()
+    if linea:
+        devolver = linea.rstrip('\n').split(',', 2)
+    else:
+        devolver = "","", ""
+        
+    return devolver
+    
+
+def leer_codigo(archivo):
+    """
+        [Autor: Julian Uño]
+        [Ayuda: Lee por linea del archivo recibido, y devuelve el registro
+        sin salto de linea y divido por ',' si no devuelve vacio. solo
+        separa dos campos]
+    """
+   
+    linea = archivo.readline()
+    if linea:
+        retornar = linea.rstrip('\n').split(',')
+    else:
+        retornar = "", ""
+    
+
+def listar_comentarios(archivo_comentarios):
+    """
+        [Autor: Julian Uño]
+        [Ayuda: Recibe el archivo comentarios.csv y devuelve una tupla
+        con las lineas de comentarios de todas las funciones]
+    """
+    
+    lista_nombres = []
+    lista_autor = []
+    lista_info_ayuda = []
+    ar_comentarios = open(archivo_comentarios, "r")
+    nombre_funcion, autor,resto_linea = leer_comentario(ar_comentarios)
+    info_ayuda,resto_linea = resto_linea.split('],', 1)
+    
+    while nombre_funcion:
+        for i in range(0, 4):
+            
+            if nombre_funcion:
+                
+                print('{0:10}'.format(nombre_funcion), end = '\t\t')
+                lista_nombres.append(nombre_funcion)
+                lista_autor.append(autor)
+                lista_info_ayuda.append(info_ayuda)
+                nombre_funcion, autor,resto_linea = leer_comentario(ar_comentarios)
+                info_ayuda, resto_linea = resto_linea.split('],', 1)
+            
+        print("\n")
+    ar_comentarios.close()
+     
+    return lista_nombres, lista_autor, lista_info_ayuda
+
+def listar_lineas_codigo(archivo_fuente_unico):
+    """
+        [Autor: Julian Uño]
+        [Ayuda: Recibe el archivo fuente_unico.csv y
+        lista las lineas de codigo en sublistas]
+    """
+    
+    ar_cod = open(archivo_fuente_unico, 'r')
+    sublista_linea_codigo = leer(ar_cod)
+    
+    lista_lineas_codigo = []
+    while sublista_linea_codigo[0]:
+        lista_lineas_codigo.append(sublista_linea_codigo)
+        sublista_linea_codigo = leer(ar_cod)
+        
+    ar_cod.close()
+    
+    return lista_lineas_codigo
+
+def ingresar_funcion():
+    """
+        [Autor: Julian Uño]
+        [Ayuda: Solicita el ingreso del nombre de la función
+        y el caracter especial]
+    """
+    return input("Función: ")
+    
+def describir_funciones():
+    """
+        [Autor: Julian Uño]
+        [Ayuda: Analiza lo que ingresa el usuario, y
+        de acuerdo al caracter especial va a impirmir comentarios, instrucciones, informacion relativo
+        a una funcion en particular o varias en funcion de lo ingresado]
+    """
+    
+    print("Funciones".center(100, "-"))
+    tupla_comentarios = listar_comentarios('comentarios.csv')
+    tupla_codigos_funciones = listar_lineas_codigo('fuente_unico.csv')
+    nombre_funcion = ingresar_funcion()
+    lista_codigos_funciones = listar_lineas_codigo('fuente_unico.csv')
+    
+    while nombre_funcion:
+    
+        if nombre_funcion[0 : nombre_funcion.find('?')] in tupla_comentarios[0]  and '?' in nombre_funcion:      
+            posicion = tupla_comentarios[0].index(nombre_funcion[0 : nombre_funcion.find('?')])    #posicion variable dependiendo el nombre de la funcion
+            print("descripcion: {0}".format(tupla_comentarios[2][posicion]))
+            print('------------------------------------------------------------------------------')    
+            print("autor: {0}".format(tupla_comentarios[1][posicion]))
+            print('------------------------------------------------------------------------------')
+            i = 0
+            while nombre_funcion[0 : nombre_funcion.find('?')] not in lista_codigos_funciones[i]:
+                i += 1
+            print("parametros: {}".format(lista_codigos_funciones[i][1]))
+            print('------------------------------------------------------------------------------')
+            print("modulo: {}".format(lista_codigos_funciones[i][2]))
+            print('==============================================================================')
+            nombre_funcion = ingresar_funcion()
+            
+        elif nombre_funcion[0 : nombre_funcion.find('#')] in tupla_comentarios[0] and '#' in nombre_funcion:
+            i = 0
+            while nombre_funcion[0 : nombre_funcion.find('#')] not in lista_codigos_funciones[i]:
+                i += 1
+            print('"\"\"')
+            print("Autor: ", tupla_comentarios[1][i])
+            print("Ayuda: ", tupla_comentarios[2][i])
+            print('"\"\"')
+            for linea_codigo in lista_codigos_funciones[i]:
+                if linea_codigo:
+                    print(linea_codigo)
+            nombre_funcion = ingresar_funcion()
+            
+        elif "?todo" == nombre_funcion:
+            posicion = 0
+            for nombre in tupla_comentarios[0]:
+                print("nombre de la funcion: ", nombre)
+                print("descripcion: {0}".format(tupla_comentarios[2][posicion]))
+                print('------------------------------------------------------------------------------')
+                print("autor: {0}".format(tupla_comentarios[1][posicion]))
+                print('------------------------------------------------------------------------------')
+                print("parametros: {}".format(lista_codigos_funciones[posicion][1]))
+                print('------------------------------------------------------------------------------')
+                print("modulo: {}".format(lista_codigos_funciones[posicion][2]))
+                print('==============================================================================')
+                posicion += 1
+            nombre_funcion = ingresar_funcion()
+                    
+        elif "#todo" == nombre_funcion:
+            elemento = 0
+            for nombre in tupla_comentarios[0]:
+                    print(nombre.center(100, '='))
+                    print(tupla_comentarios[1][elemento])
+                    print(tupla_comentarios[2][elemento])
+                    for codigo in lista_codigos_funciones[elemento]:
+                        if codigo:
+                            print(codigo)
+                    elemento += 1
+                    
+            nombre_funcion = ingresar_funcion()
+                
+                
+        elif "imprimir ?todo" == nombre_funcion:
+            #genera un archivo con la informacion de todas las funciones
+            
+            with open('ayuda_funciones.txt', 'w') as ayuda:
+                subindice = 0
+                for nombre in tupla_comentarios[0]:
+                    ayuda.write(nombre)
+                    ayuda.write(tupla_comentarios[2][subindice])
+                    ayuda.write(tupla_comentarios[1][subindice])
+                    ayuda.write(lista_codigos_funciones[subindice][1])
+                    ayuda.write(lista_codigos_funciones[subindice][2])
+                    ayuda.write('\n')
+                    subindice += 1
+                    
+            nombre_funcion = ingresar_funcion()
+                    
+        else:
+            print("Ocurrio un error al ingresar datos, porfavor intente de nuevo.")
+            nombre_funcion = ingresar_funcion()
+            
+describir_funciones()

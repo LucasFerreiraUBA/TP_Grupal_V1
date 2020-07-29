@@ -1,4 +1,4 @@
-import os, modulo1, An_Reu_Cod,TPG_parte_5,corte_control, crear_arch_datos_funciones, crear_panel_funciones
+import os, modulo1, An_Reu_Cod, consulta_funciones, TPG_parte_5, corte_control, crear_arch_datos_funciones, crear_panel_funciones
 
 def generador_fuente_comentarios():
     """
@@ -32,19 +32,24 @@ def main():
                 arch_datos = open("panel_general.csv", "r")
                 crear_panel_funciones.mostrar_tabla_funciones(arch_datos)
                 arch_datos.close()
+                input('\nPulse ENTER para finalizar.')
                 valor = None
-            """if valor == '2':
-                modulo 2
-                valor = None"""
+            if valor == '2':
+                consulta_funciones.describir_funciones()
+                input('\nPulse ENTER para finalizar.')
+                valor = None
             if valor == '3':
                 An_Reu_Cod.reutilizacion_de_codigo()
+                input('\nPulse ENTER para finalizar.')
                 valor = None
             """if valor == '4':
                 modulo 4
+                input('\nPulse ENTER para finalizar.')
                 valor = None"""
             if valor == '5':
                 TPG_parte_5.ejecutar()
                 corte_control.main_control()
+                input('\nPulse ENTER para finalizar.')
                 valor = None
             if valor == '6':
                 print('''\nEsta opcion eliminara todos los archivos generados por el programa.

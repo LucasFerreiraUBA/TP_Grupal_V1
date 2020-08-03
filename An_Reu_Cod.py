@@ -237,11 +237,11 @@ def reutilizacion_de_codigo():
             En caso de no existir, crea el archivo txt y luego lo imprime.]
     """
     if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
-        print('\nanalizador.txt existe, leyendo...\n')
+        print('\analizador.txt existe, leyendo...\n')
         print()
         analizador = open("{}\\analizador.txt".format(os.getcwd()), 'r')
     else:
-        print('\nanalizador.txt no existe, creando...\n')
+        print('\analizador.txt no existe, creando...\n')
         listaOG = generador_de_lista_de_funciones()
         listaLL = generador_de_listas_de_llamadas(listaOG)
         dixTOT = contador_de_invocaciones(listaOG, listaLL)

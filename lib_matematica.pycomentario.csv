@@ -1,0 +1,4 @@
+es_primo,[Autor: Juan Perez],[Ayuda: Evlua si el numero recibido es primo o no, devolviendo True encaso de serlo, y False en caso contrario.],""",# Evaluacion de si el numero es primo,,
+factorial,[Autor: Juan Perez],[Ayuda: Calcula el factorial de el numero recibido, que debe sermayor o igual a cero],""",,
+mcd,[Autor: Ana Garcia],[Ayuda: Calcula el MCD entre los dos numeros recibidos, utilizando elmetodo de Euclides. En caso de no existir MCD, devolverá -1.],""",,
+mcm,[Autor: Ana Garcia],[Ayuda: Calcula el MCM (minimo comun multiplo) entre los dos numerosrecibidos. En caso de no existir, devolverá -1.Para el calculo se utiliza mcm(a,b) = (a*b)/MCD(a,b)],""",,

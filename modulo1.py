@@ -15,22 +15,29 @@ def leer_programas():
             programa_num += 1
     return diccionario_salida
 
+
 #recibe el diccionario de direcciones
 def manejar_contenido(direcciones):
     """
     [Autor: Lucas Ferreira]
     [Ayuda: Lee el diccionario de direcciones, abre cada archivo, consigue el nombre de cada modulo y retorna una tupla con cada funcion ordenada]
     """
-    lista_final = []
     #bucle que va abriendo cada direccion guardada
     for D in direcciones:
+        lista_final = []
         with open(direcciones[D], encoding='utf-8') as p:
             programa = p.read().split('\n')
         nombre_modulo = direcciones[D].split('\\')[-1]
         for funcion in ordenar_contenido(programa,nombre_modulo):
             lista_final.append(funcion)
-    lista_final = insercion(lista_final)
-    return tuple(lista_final)
+        fuente_unico,comentarios= generar_csv(lista_final)
+        fuente = open(nombre_modulo+'fuente_unico.csv','w')
+        comentario = open(nombre_modulo+'comentario.csv','w')
+        fuente.write(fuente_unico)
+        comentario.write(comentarios)
+        fuente.close()
+        comentario.close()
+    return lista_final
 
 def insercion(lista):
     """
@@ -38,6 +45,7 @@ def insercion(lista):
     [Ayuda: ordena las listas por metodo de insercion, al inicio de cada lista está el nombre de la funcion, así quedan ordenadas alfabeticamente]
 
     """
+    lista = list(lista)
     n = len(lista)
     for i in range(1,n):
         elemento = lista[i]
@@ -72,11 +80,14 @@ def ordenar_contenido(programa,nombre_mod):
         #si son comentarios multilinea, agrega la linea a la lista de comentarios
         #y cambia "es_comentario" a True o False, para luego el resto de las lineas reconocerlas como comentario o no
         if '\"\"\"' in linea:
+            
+            
             if es_comentario and linea.count('\"\"\"') == 1:
                 es_comentario = False
+                comentarios.append(linea)
             elif linea.count('\"\"\"') == 1:
-                es_comentario = True
-            comentarios.append(linea)
+                es_comentario = True    
+            
         elif es_comentario:
             if '[autor:' in linea.lower():
                 comentarios.insert(0,linea)
@@ -112,6 +123,7 @@ def ordenar_contenido(programa,nombre_mod):
     return lista_mod
 
 
+
 def generar_csv(tupla):
     """
     [Autor: Lucas Ferreira]
@@ -121,6 +133,7 @@ def generar_csv(tupla):
     #las 2 cadenas de texto que serán guardadas como csv al final de la funcion
     fuente_unico = ''
     comentarios = ''
+    tupla = insercion(tupla)
     for funcion in tupla:
         fuente_unico += funcion[0] + ',' 
         comentarios += funcion[0] + ','

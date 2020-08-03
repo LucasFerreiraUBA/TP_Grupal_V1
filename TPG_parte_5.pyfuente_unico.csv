@@ -1,0 +1,2 @@
+crear_archivo,(diccionario),TPG_parte_5,parte_5 = '',for autor in diccionario:,del diccionario[autor]['lineas_totales'],for funcion in diccionario[autor]:,parte_5 += '{},{},{}\n'.format(autor,funcion,diccionario[autor][funcion]),with open('parte_5.csv','w') as p:,p.write(parte_5),
+ejecutar,(),TPG_parte_5,crear_archivo(ordenar_por_autor()),

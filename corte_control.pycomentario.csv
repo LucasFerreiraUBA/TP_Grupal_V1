@@ -1,0 +1,8 @@
+autor_funcion_valor,[Autor: Lucas Ferreira],[Ayuda: lee programas.txt, crea un diccionario y lo retorna],""",#---------------------------------------------------------------------,,
+contar_total,[Autor: Lucas Ferreira],[Ayuda: lee programas.txt, crea un diccionario y lo retorna],""",### =================================================,* funcion main,""",,
+corte_control,[Autor: Lucas Ferreira],[Ayuda: lee programas.txt, crea un diccionario y lo retorna],""",# Leo cada una de las lineas,#### =================================================,,
+escribir,[Autor: Lucas Ferreira],[Ayuda: lee programas.txt, crea un diccionario y lo retorna],""",#---------------------------------------------------------------------,,
+imprimir,[Autor: Lucas Ferreira],[Ayuda: lee programas.txt, crea un diccionario y lo retorna],""",#---------------------------------------------------------------------,,
+leer,[Autor: Lucas Ferreira],[Ayuda: lee programas.txt, crea un diccionario y lo retorna],""",#---------------------------------------------------------------------,,
+main_control,[Autor: Lucas Ferreira],[Ayuda: lee programas.txt, crea un diccionario y lo retorna],""",# Abro archivo para lectura,,
+total_autor,[Autor: Lucas Ferreira],[Ayuda: lee programas.txt, crea un diccionario y lo retorna],""",#---------------------------------------------------------------------,,

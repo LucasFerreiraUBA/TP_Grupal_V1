@@ -6,22 +6,26 @@ def ordenar_por_autor():
     """
     parte_5 = {}
     f = open('fuente_unico.csv')
-    codigo = f.readline().split(',')[3:]
+    codigo = f.readline().rstrip(',\n').split(',')[3:]
     codigo = len(arreglar.arreglar_csv(codigo))
     c = open('comentarios.csv')
     comentario = c.readline().split(',')[:2]
     parte_5[comentario[1]]={}
     autor= comentario[1]
     codigo_total=0
+    parte_5[autor]['lineas_totales']=0
     while comentario != ['']:
         if autor != comentario[1] and comentario[1] not in parte_5:
-            parte_5[autor]['lineas_totales']= codigo_total
-            codigo_total=0
-            autor= comentario[1]
             parte_5[comentario[1]]={}
+            autor= comentario[1]
+            codigo_total=0
+            parte_5[autor]['lineas_totales']= codigo_total
+        autor= comentario[1]
         parte_5[comentario[1]][comentario[0]]=codigo
-        codigo_total+= codigo
-        codigo = len(arreglar.arreglar_csv(f.readline().split(',')[3:]))
+        codigo_total = parte_5[autor]['lineas_totales']
+        codigo_total +=codigo
+        parte_5[autor]['lineas_totales']= codigo_total
+        codigo = len(arreglar.arreglar_csv(f.readline().rstrip(',\n').split(',')[3:]))
         comentario = c.readline().split(',')[:2]
     parte_5[autor]['lineas_totales']= codigo_total
     #ordena el diccionario agrupando las funciones por autor (y los autores en orden alfabetico)
@@ -45,4 +49,3 @@ def crear_archivo(diccionario):
 
 def ejecutar():
     crear_archivo(ordenar_por_autor())
-ejecutar()   

@@ -8,10 +8,15 @@ def escribir(leyenda, dato,archivo_nuevo, separador = False,contador_funciones='
     [Autor: Lucas Ferreira]
     [Ayuda: lee programas.txt, crea un diccionario y lo retorna]
     """
-    archivo_nuevo.write('{} {} {} {} {} {}'.format(contador_funciones,leyenda, dato,porcentaje,simbolo_porcentaje,'\n'))
+    if len(contador_funciones)==2:      
+        archivo_nuevo.write('{0} {1:^38} {2:^5} {3} {4} {5}'.format(contador_funciones,leyenda, dato,porcentaje,simbolo_porcentaje,'\n'))
+    elif len(contador_funciones)==1:
+        archivo_nuevo.write('{0} {1:^39} {2:^5} {3} {4} {5}'.format(contador_funciones,leyenda, dato,porcentaje,simbolo_porcentaje,'\n'))
+    else:
+        archivo_nuevo.write('{0} {1:^40} {2:^5} {3} {4} {5}'.format(contador_funciones,leyenda, dato,porcentaje,simbolo_porcentaje,'\n'))
     if (separador):
         guion = "=" * 55
-        archivo_nuevo.write('{} {}'.format(guion,'\n'))
+        archivo_nuevo.write('{} {}'.format(guion,'\n\n'))
         
 #---------------------------------------------------------------------
 def imprimir(leyenda, dato, separador = False,contador_funciones='',porcentaje='',simbolo_porcentaje=''):
@@ -19,7 +24,12 @@ def imprimir(leyenda, dato, separador = False,contador_funciones='',porcentaje='
     [Autor: Lucas Ferreira]
     [Ayuda: lee programas.txt, crea un diccionario y lo retorna]
     """
-    print('{} {} {} {} {}'.format(contador_funciones,leyenda, dato, porcentaje,simbolo_porcentaje))
+    if len(contador_funciones) == 2:       
+        print('{0} {1:^38} {2:^5} {3} {4}'.format(contador_funciones,leyenda, dato, porcentaje,simbolo_porcentaje))
+    elif len(contador_funciones) ==1:
+        print('{0} {1:^39} {2:^5} {3} {4}'.format(contador_funciones,leyenda, dato, porcentaje,simbolo_porcentaje))
+    else:
+        print('{0} {1:^40} {2:^5} {3} {4}'.format(contador_funciones,leyenda, dato, porcentaje,simbolo_porcentaje))
     if (separador):
         guion = "=" * 55
         print (guion,'\n')
@@ -53,8 +63,8 @@ def total_autor(registro, archivo,archivo_nuevo):
     funcion_actual = funcion
     acumulado_autor   = 0
     contador_funciones=0
-    print('{:^20}{:^40}'.format('Funciones','lineas'))
-    archivo_nuevo.write('{:^20}{:^40} {}'.format('Funciones','lineas','\n'))
+    print('{0:^40}{1:^6}'.format('Funciones','lineas'))
+    archivo_nuevo.write('{0:^40}{1:^6} {2}'.format('Funciones','lineas','\n'))
     while (autor == autor_actual and autor < MAX_AUTOR):
         acumulado_funcion, funcion_procesado, registro = total_funcion(registro, archivo)
         leyenda = "  " + funcion_procesado + " - "
@@ -89,8 +99,8 @@ def corte_control(archivo,archivo_nuevo):
     acumulado_total = 0
 
     while (registro[0] < MAX_AUTOR):
-        imprimir("\n", registro[0]+"\n")
-        escribir("\n", registro[0]+"\n",archivo_nuevo)
+        print(registro[0]+"\n")
+        archivo_nuevo.write(registro[0]+"\n\n")
         acumulado_autor, registro , contador_funciones= total_autor(registro, archivo,archivo_nuevo)
         acumulado_total += acumulado_autor
         imprimir("Funciones - lineas: ", acumulado_autor,True,str(contador_funciones),str(round(acumulado_autor/contar_total()*100,2)),'%')
@@ -134,5 +144,3 @@ def main_control():
     corte_control(archivo,archivo_nuevo)
     archivo.close()
     archivo_nuevo.close()
-
-    

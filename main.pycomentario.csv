@@ -1,0 +1,3 @@
+descripcion_menu,[Autor: Lucas M. Diana],[Ayuda: Esta funcion contiene las instrucciones de la utilizaciondel menu principal.],""",,
+generador_fuente_comentarios,[Autor: Lucas Ferreira],[Ayuda: Llama a las funciones desde que lee programas txthasta que las convierte en csv],""",,
+main,[Autor: Lucas M. Diana],[Ayuda: Muestra un menu y espera a la instruccion del usuario.La instruccion enviara al usuario al modulo del programaque solicite.En caso de elegir cerrar el programa, este finalizara.],""",modulo 2,valor = None""",modulo 4,valor = None""",,

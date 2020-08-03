@@ -1,5 +1,8 @@
-C:\Users\Administrador\Desktop\TP_Grupal_V1-master\main.py
-C:\Users\Administrador\Desktop\TP_Grupal_V1-master\modulo1.py
-C:\Users\Administrador\Desktop\TP_Grupal_V1-master\TPG_parte_5.py
-C:\Users\Administrador\Desktop\TP_Grupal_V1-master\corte_control.py
-C:\Users\Administrador\Desktop\TP_Grupal_V1-master\An_Reu_Cod.py
+C:\Users\Administrador\Desktop\trabajo\main.py
+C:\Users\Administrador\Desktop\trabajo\modulo1.py
+C:\Users\Administrador\Desktop\trabajo\TPG_parte_5.py
+C:\Users\Administrador\Desktop\trabajo\corte_control.py
+C:\Users\Administrador\Desktop\trabajo\An_Reu_Cod.py
+C:\Users\Administrador\Desktop\trabajo\app_matematica.py
+C:\Users\Administrador\Desktop\trabajo\lib_matematica.py
+C:\Users\Administrador\Desktop\trabajo\crear_arch_datos_funciones.py

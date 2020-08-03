@@ -1,5 +1,6 @@
 def leer_registro(archivo, fin_arch):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Devuelve una cadena que contiene un registro leído del archivo,
         con extensión csv, que recibe por parámetro.
         Cuando llega al final del archivo devuelve la cadena fin_arch.
@@ -12,7 +13,8 @@ def leer_registro(archivo, fin_arch):
     return linea.rstrip("\n") if linea else fin_arch
 
 def grabar_registro(archivo, linea):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Graba un registro en el archivo que recibe.
         La cadena de caracteres linea contiene la información que se escribe en
         el archivo.
@@ -22,7 +24,8 @@ def grabar_registro(archivo, linea):
     archivo.write(f"{linea}\n")
 
 def procesar_codigo(registro, fin_arch):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Recibe un registro con el siguiente formato:
         <nombre_función>,<parámetros>,<nombre_modulo>,<instrucciones>
         y devuelve una secuencia de cuatro elemenos.
@@ -52,7 +55,8 @@ def procesar_codigo(registro, fin_arch):
 
 
 def procesar_comentarios(registro, fin_arch):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Recibe un registro con el siguiente formato:
         <nombre_función>,<nombre_autor>,<descripcion_funcion>,<comentarios>
         y devuelve una secuencia de cuatro elemenos.
@@ -73,7 +77,8 @@ def procesar_comentarios(registro, fin_arch):
     return nombre_función, nom_autor, descripcion, comentarios
 
 def contar_parametros(cadena_parametros):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Recibe una cadena de caracteres que contiene parámetros separados
         por coma, y devuelve la cantidad de los mismos.
         La cadena_parametros se encuentra dentro de paréntesis.]
@@ -87,7 +92,8 @@ def contar_parametros(cadena_parametros):
     return cantidad
 
 def contar_sentencias(cadena_ordenes):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Recibe una cadena que contiene instrucciones de una función
         separadas por coma.
         Devuelve la cantidad de líneas que contiene la cadena y la cantidad de
@@ -130,7 +136,8 @@ def contar_sentencias(cadena_ordenes):
     cant_romper, cant_retorno
 
 def contar_comentarios(anotaciones):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Devuelve la cantidad de comentarios que se encuentran en la
         cadena que recibe por parámetro.
         Las líneas de comentarios se encuentran separadas por comas.]
@@ -145,7 +152,8 @@ def contar_comentarios(anotaciones):
     return cantidad
 
 def extraer_autor(datos_autor):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Recibe una cadena que contiene el nombre del autor encerrado
         entre corchetes y con la etiqueta 'Autor'.
         Extrae el nombre y lo devuelve.]
@@ -157,7 +165,8 @@ def extraer_autor(datos_autor):
 
 
 def cargar_datos(arch_codigo, arch_comentarios, arch_reporte, ultimo):
-    """[Autor: Javier Acho]
+    """
+[Autor: Javier Acho]
        [Ayuda: Se extraen datos de arch_codigo y arch_comentarios, y se cargan
         en arch_reporte.
         Los arch_codigo y arch_comentarios tienen extension csv y están

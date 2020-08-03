@@ -3,8 +3,8 @@ def leer_comentario(archivo):
     """
         [Autor: Julian Uño]
         [Ayuda: Lee por linea del archivo recibido, y devuelve el registro
-        sin salto de linea y divido por ',' en tres campos , si no devuelve vacio, solo
-        separa tres campos]
+        sin salto de linea y divido por ',' en tres campos , si no devuelve 
+        tres espacios vacios]
     """
     
     linea = archivo.readline()
@@ -20,16 +20,38 @@ def leer_codigo(archivo):
     """
         [Autor: Julian Uño]
         [Ayuda: Lee por linea del archivo recibido, y devuelve el registro
-        sin salto de linea y divido por ',' si no devuelve vacio. solo
-        separa dos campos]
+        sin salto de linea y divido por ',' si no devuelve 
+        devuelve dos espacios vacios]
     """
    
     linea = archivo.readline()
     if linea:
-        retornar = linea.rstrip('\n').split(',')
+        retornar = linea.rstrip('\n').split(',', 1)
     else:
-        retornar = "", ""
+        retornar = "", " "
+        
+    return retornar
     
+def mostrar_tabla(lista):
+    """
+        [Autor: Julian Uño]
+        [Ayuda:  Recibe un nombre de funcion y una
+        tupla de listas donde se encuentra, va
+        generando una tabla con las funciones de los archivos fuentes]
+    """
+    
+    pos_nombre = 0
+    
+    while pos_nombre < len(lista):
+        
+        for nombre in range(0, 4):
+            
+            if lista[pos_nombre]:
+                
+                print('{0:10}'.format(lista[pos_nombre]), end = '\t\t')
+                pos_nombre += 1
+            
+        print("\n")    
 
 def listar_comentarios(archivo_comentarios):
     """

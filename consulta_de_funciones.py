@@ -272,8 +272,13 @@ def describir_funciones():
                 for nombre in l_nombres_funciones:
                     
                     ayuda.write('Nombre Función: ' + nombre + '\n')
-                    ayuda.write(tupla_comentarios[2][subindice][1:-1]+ '\n')#ayuda
-                    ayuda.write(tupla_comentarios[1][subindice][1:-1] + '\n')#autor
+                    if len(tupla_comentarios[2][subindice][1:-1]) < 80:
+                        ayuda.write(tupla_comentarios[2][subindice][1:-1]+ '\n')    #escribe la ayuda
+                    else:
+                        ayuda.write(tupla_comentarios[2][subindice][1:-1][:81]+ '\n')
+                        ayuda.write(tupla_comentarios[2][subindice][1:-1][81:]+ '\n')
+                        
+                    ayuda.write(tupla_comentarios[1][subindice][1:-1] + '\n')    #escribe el autor
                     ayuda.write('Parametros: ' + tupla_codigos_funciones[1][subindice] + '\n')
                     ayuda.write('Modulo: ' + tupla_codigos_funciones[2][subindice] + '\n')
                     ayuda.write('\n')

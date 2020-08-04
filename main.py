@@ -1,4 +1,4 @@
-import os, modulo1, An_Reu_Cod,TPG_parte_5,corte_control, crear_arch_datos_funciones, crear_panel_funciones
+import os, modulo1, An_Reu_Cod,TPG_parte_5,corte_control, crear_arch_datos_funciones, crear_panel_funciones, consulta_de_funciones
 
 def generador_fuente_comentarios():
     """
@@ -33,9 +33,9 @@ def main():
                 crear_panel_funciones.mostrar_tabla_funciones(arch_datos)
                 arch_datos.close()
                 valor = None
-            """if valor == '2':
-                modulo 2
-                valor = None"""
+            if valor == '2':
+                consulta_de_funciones.describir_funciones()
+                valor = None
             if valor == '3':
                 An_Reu_Cod.reutilizacion_de_codigo()
                 valor = None

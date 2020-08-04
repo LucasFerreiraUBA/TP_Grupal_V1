@@ -27,7 +27,7 @@ def merger():
         renglon_comentario = None
         while renglon_comentario != '':
             renglon_comentario = comentario.readline()
-            comentario_unico.write(renglon_fuente)
+            comentario_unico.write(renglon_comentario)
         fuente.close()
         comentario.close()
         os.remove("{}_fuente_unico.csv".format(nombre_modulo))

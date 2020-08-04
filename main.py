@@ -1,4 +1,4 @@
-import os, modulo1, merge_total_archivos, An_Reu_Cod, TPG_parte_5, corte_control, crear_arch_datos_funciones, crear_panel_funciones, consulta_de_funciones
+import os, modulo1, generador_arbol_invocaciones, merge_total_archivos, An_Reu_Cod, TPG_parte_5, corte_control, crear_arch_datos_funciones, crear_panel_funciones, consulta_de_funciones
 
 def generador_fuente_comentarios():
     """
@@ -39,9 +39,9 @@ def main():
             if valor == '3':
                 An_Reu_Cod.reutilizacion_de_codigo()
                 valor = None
-            """if valor == '4':
-                modulo 4
-                valor = None"""
+            if valor == '4':
+                generador_arbol_invocaciones.generar_arbol_dependencias()
+                valor = None
             if valor == '5':
                 TPG_parte_5.ejecutar()
                 corte_control.main_control()

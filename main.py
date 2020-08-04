@@ -62,7 +62,12 @@ sin tener que eliminar los archivos correspondientes a los analisis anteriores.'
                         os.remove("{}\\panel_general.csv".format(os.getcwd()))
                     if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
                         os.remove("{}\\analizador.txt".format(os.getcwd()))
+                    if os.path.isfile("{}\\participacion.txt".format(os.getcwd())):
+                        os.remove("{}\\participacion.txt".format(os.getcwd()))
+                    if os.path.isfile("{}\\parte_5.csv".format(os.getcwd())):
+                        os.remove("{}\\parte_5.csv".format(os.getcwd()))
                     generador_fuente_comentarios()
+                    merge_total_archivos.merger()
                     main()
         elif valor not in '0,1,2,3,4,5,6'.split(','):
             print('\nEl valor registrado no es un numero permitido!')
@@ -79,6 +84,10 @@ sin tener que eliminar los archivos correspondientes a los analisis anteriores.'
                     os.remove("{}\\panel_general.csv".format(os.getcwd()))
                 if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
                     os.remove("{}\\analizador.txt".format(os.getcwd()))
+                if os.path.isfile("{}\\participacion.txt".format(os.getcwd())):
+                    os.remove("{}\\participacion.txt".format(os.getcwd()))
+                if os.path.isfile("{}\\parte_5.csv".format(os.getcwd())):
+                    os.remove("{}\\parte_5.csv".format(os.getcwd()))
     
 def descripcion_menu():
     """

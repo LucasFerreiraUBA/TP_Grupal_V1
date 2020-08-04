@@ -68,13 +68,13 @@ def procesar_comentarios(registro, fin_arch):
         # el campo <nombre_funcion> y <nombre_autor> no tienen caracteres
         # coma, los otros dos campos pueden tener comas
         nom_funcion, nom_autor, resto_registro = registro.split(",", 2)
-        descripcion, comentarios = resto_registro.split("],")
+        descripcion, comentarios = resto_registro.split(",", 1)
         descripcion += "]"
 
     else:
         nom_funcion, nom_autor, descripcion, comentarios = fin_arch.split(",")
 
-    return nombre_función, nom_autor, descripcion, comentarios
+    return nom_funcion, nom_autor, descripcion, comentarios
 
 def contar_parametros(cadena_parametros):
     """

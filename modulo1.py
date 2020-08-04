@@ -30,7 +30,7 @@ def manejar_contenido(direcciones):
         nombre_modulo = direcciones[D].split('\\')[-1]
         for funcion in ordenar_contenido(programa,nombre_modulo):
             lista_final.append(funcion)
-        fuente_unico,comentarios= generar_csv(lista_final)
+        fuente_unico, comentarios= generar_csv(lista_final)
         fuente = open(nombre_modulo.split('.')[0]+'_fuente_unico.csv','w')
         comentario = open(nombre_modulo.split('.')[0]+'_comentario.csv','w')
         fuente.write(fuente_unico)
@@ -50,7 +50,7 @@ def insercion(lista):
     for i in range(1,n):
         elemento = lista[i]
         max_local = i-1
-        while max_local >= 0 and elemento < lista[max_local]:
+        while max_local >= 0 and elemento[0] < lista[max_local][0]:
             lista[max_local+1] = lista[max_local]
             max_local -= 1
         lista[max_local+1] = elemento

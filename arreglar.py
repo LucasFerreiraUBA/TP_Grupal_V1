@@ -15,7 +15,6 @@ lista2 =arreglar_csv(lista)
 uno = lista2[0]
 dos = lista2[1]
 tres= lista2[2]
-print(len(lista2))
 
 
 

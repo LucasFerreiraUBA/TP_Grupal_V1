@@ -125,4 +125,3 @@ def panel_general():
 generador_fuente_comentarios()
 merge_total_archivos.merger()
 main()
-

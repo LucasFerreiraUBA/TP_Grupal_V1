@@ -31,8 +31,8 @@ def manejar_contenido(direcciones):
         for funcion in ordenar_contenido(programa,nombre_modulo):
             lista_final.append(funcion)
         fuente_unico,comentarios= generar_csv(lista_final)
-        fuente = open(nombre_modulo+'fuente_unico.csv','w')
-        comentario = open(nombre_modulo+'comentario.csv','w')
+        fuente = open(nombre_modulo.split('.')[0]+'_fuente_unico.csv','w')
+        comentario = open(nombre_modulo.split('.')[0]+'_comentario.csv','w')
         fuente.write(fuente_unico)
         comentario.write(comentarios)
         fuente.close()

@@ -1,4 +1,4 @@
-import os, modulo1, An_Reu_Cod,TPG_parte_5,corte_control, crear_arch_datos_funciones, crear_panel_funciones, consulta_de_funciones
+import os, modulo1, merge_total_archivos, An_Reu_Cod, TPG_parte_5, corte_control, crear_arch_datos_funciones, crear_panel_funciones, consulta_de_funciones
 
 def generador_fuente_comentarios():
     """
@@ -114,7 +114,6 @@ def panel_general():
         arch_datos_final.close()
         
 generador_fuente_comentarios()
+merge_total_archivos.merger()
 main()
-
-
 

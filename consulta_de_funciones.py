@@ -45,7 +45,7 @@ def mostrar_tabla(lista):
         
         for nombre in range(0, 4):
             
-            if lista[pos_nombre]:
+            if pos_nombre < len(lista) and lista[pos_nombre]:
                 
                 print('{0:10}'.format(lista[pos_nombre]), end = '\t\t')
                 pos_nombre += 1

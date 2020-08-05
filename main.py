@@ -1,18 +1,22 @@
-import os, modulo1, generador_arbol_invocaciones, merge_total_archivos, An_Reu_Cod, TPG_parte_5, corte_control, crear_arch_datos_funciones, crear_panel_funciones, consulta_de_funciones
+import os, crear_ar_csv_merge, generador_arbol_invocaciones, An_Reu_Cod, TPG_parte_5, corte_control, crear_arch_datos_funciones, crear_panel_funciones, consulta_de_funciones
 
-def generador_fuente_comentarios():
+def borrar_archivos():
     """
-    [Autor: Lucas Ferreira]
-    [Ayuda: Llama a las funciones desde que lee programas txt
-            hasta que las convierte en csv]
+    [Autor: Lucas M. Diana]
+    [Ayuda: Esta funcion elimina los archivos creados por el programa.]
     """
-    programas = modulo1.leer_programas()
-    tupla_completa = modulo1.manejar_contenido(programas)
-    archivos = modulo1.generar_csv(tupla_completa)
-    with open('fuente_unico.csv','w') as f:
-        f.write(archivos[0])
-    with open('comentarios.csv','w') as c:
-        c.write(archivos[1])
+    print('\nEliminando...\n')
+    if os.path.isfile("panel_general.csv"):
+        os.remove("panel_general.csv")
+    if os.path.isfile("analizador.txt"):
+        os.remove("analizador.txt")
+    if os.path.isfile("participacion.txt"):
+        os.remove("participacion.txt")
+    if os.path.isfile("parte_5.csv"):
+        os.remove("parte_5.csv")
+    if os.path.isfile("ayuda_funciones.txt"):
+        os.remove("ayuda_funciones.txt")
+
 
 def main():
     """
@@ -55,19 +59,13 @@ sin tener que eliminar los archivos correspondientes a los analisis anteriores.'
                 while sn not in 'sSnN':
                     sn = input('Desea continuar? (S/N) ')
                 if sn.lower() == 's':
-                    print('\nEliminando...')
-                    os.remove("{}\\fuente_unico.csv".format(os.getcwd()))
-                    os.remove("{}\\comentarios.csv".format(os.getcwd()))
-                    if os.path.isfile("{}\\panel_general.csv".format(os.getcwd())):
-                        os.remove("{}\\panel_general.csv".format(os.getcwd()))
-                    if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
-                        os.remove("{}\\analizador.txt".format(os.getcwd()))
-                    if os.path.isfile("{}\\participacion.txt".format(os.getcwd())):
-                        os.remove("{}\\participacion.txt".format(os.getcwd()))
-                    if os.path.isfile("{}\\parte_5.csv".format(os.getcwd())):
-                        os.remove("{}\\parte_5.csv".format(os.getcwd()))
-                    generador_fuente_comentarios()
-                    merge_total_archivos.merger()
+                    borrar_archivos()
+                    os.remove("fuente_unico.csv".format(os.getcwd()))
+                    os.remove("comentarios.csv".format(os.getcwd()))
+                    crear_ar_csv_merge.generar_par_archivos_modulo()
+                    crear_ar_csv_merge.mezcla_de_lineas_codigo()
+                    crear_ar_csv_merge.mezcla_de_comentarios()
+                    limpieza()
                     main()
         elif valor not in '0,1,2,3,4,5,6'.split(','):
             print('\nEl valor registrado no es un numero permitido!')
@@ -79,15 +77,7 @@ sin tener que eliminar los archivos correspondientes a los analisis anteriores.'
             while sn not in 'sSnN':
                 sn = input()
             if sn.lower() == 's':
-                print('\nEliminando...\n')
-                if os.path.isfile("{}\\panel_general.csv".format(os.getcwd())):
-                    os.remove("{}\\panel_general.csv".format(os.getcwd()))
-                if os.path.isfile("{}\\analizador.txt".format(os.getcwd())):
-                    os.remove("{}\\analizador.txt".format(os.getcwd()))
-                if os.path.isfile("{}\\participacion.txt".format(os.getcwd())):
-                    os.remove("{}\\participacion.txt".format(os.getcwd()))
-                if os.path.isfile("{}\\parte_5.csv".format(os.getcwd())):
-                    os.remove("{}\\parte_5.csv".format(os.getcwd()))
+                borrar_archivos()
     
 def descripcion_menu():
     """
@@ -110,7 +100,7 @@ def panel_general():
     [Ayuda: Ejecuta el modulo crear_arch_datos_funciones solo
             si el archivo 'panel_general.csv' no existe]
     """
-    if not os.path.isfile("{}\\panel_general.csv".format(os.getcwd())):
+    if not os.path.isfile("panel_general.csv".format(os.getcwd())):
         f_error = "AAAAAA"
         arch_funcion_codigo = open("fuente_unico.csv", "r")
         arch_funcion_coment = open("comentarios.csv", "r")
@@ -121,7 +111,21 @@ def panel_general():
         arch_funcion_codigo.close()
         arch_funcion_coment.close()
         arch_datos_final.close()
+
+def limpieza():
+    """
+    [Autor: Lucas Diana]
+    [Ayuda: Elimina todos los archivos intermedios utilizados para crear
+            el fuente_unico y comentarios]
+    """
+    tipo_de_limp = ['fuente_unico_','comentarios_']
+    lista_directorio = os.listdir()
+    for archivo in lista_directorio:
+        if archivo.startswith(tipo_de_limp[0]) or archivo.startswith(tipo_de_limp[1]):
+            os.remove(archivo)
         
-generador_fuente_comentarios()
-merge_total_archivos.merger()
+crear_ar_csv_merge.generar_par_archivos_modulo()
+crear_ar_csv_merge.mezcla_de_lineas_codigo()
+crear_ar_csv_merge.mezcla_de_comentarios()
+limpieza()
 main()

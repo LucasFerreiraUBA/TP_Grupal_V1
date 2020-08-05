@@ -66,7 +66,7 @@ def separar_datos(documentacion):
     """
 
     cant = documentacion.count("[")
-    if cant == 2:
+    if cant >= 2:
         inicio = documentacion.index("[")
         fin = documentacion.index("]")
         dato_1 = documentacion[inicio:fin+1]
@@ -80,6 +80,9 @@ def separar_datos(documentacion):
         fin = documentacion.index("]")
         dato_1 = documentacion[inicio:fin+1]
         dato_2 = ""
+    else:
+        dato_1 = '[Autor: ausente]'
+        dato_2 = documentacion
 
     return dato_1, dato_2
 
@@ -99,10 +102,10 @@ def ordenar_autor_ayuda(dato1, dato2):
             ayuda = dato1
             autor = "[Autor: Ausente]"
     else:
-        if "Autor" in dato1 and "Ayuda" in dato2:
+        if "Autor" in dato1 or "Ayuda" in dato2:
             autor = dato1
             ayuda = dato2
-        elif "Ayuda" in dato1 and "Autor" in dato2:
+        elif "Ayuda" in dato1 or "Autor" in dato2:
             ayuda = dato1
             autor = dato2
 

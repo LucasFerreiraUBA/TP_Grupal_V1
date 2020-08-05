@@ -192,6 +192,10 @@ def txt_maker(listaOG, dixTOT, dixRec):
     del linea, contador, longitud, tab, analiz
 
 def escritor(analiz, listaOG, separador, tab, longitud, dixTOT, dixRec):
+    """
+    [Autor: Lucas M. Diana]
+    [Ayuda: Para anotar en el txt]
+    """
     n_funcion = 0
     for funcion in listaOG:
         analiz.write(separador)

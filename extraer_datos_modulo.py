@@ -66,7 +66,7 @@ def separar_datos(documentacion):
     """
 
     cant = documentacion.count("[")
-    if cant == 2:
+    if cant >= 2:
         inicio = documentacion.index("[")
         fin = documentacion.index("]")
         dato_1 = documentacion[inicio:fin+1]
@@ -81,7 +81,7 @@ def separar_datos(documentacion):
         dato_1 = documentacion[inicio:fin+1]
         dato_2 = ""
     else:
-        dato_1 = '[Autor: ausente]'
+        dato_1 = '[Autor: Ausente]'
         dato_2 = documentacion
 
     return dato_1, dato_2

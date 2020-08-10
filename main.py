@@ -114,7 +114,7 @@ def panel_general():
 
 def limpieza():
     """
-    [Autor: Lucas Diana]
+    [Autor: Lucas M. Diana]
     [Ayuda: Elimina todos los archivos intermedios utilizados para crear
             el fuente_unico y comentarios]
     """

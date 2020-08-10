@@ -47,7 +47,7 @@ def mostrar_tabla(lista):
             
             if pos_nombre < len(lista) and lista[pos_nombre]:
                 
-                print('{0:10}'.format(lista[pos_nombre]), end = '\t\t')
+                print('{0:^25}'.format(lista[pos_nombre]), end = '\t\t')
                 pos_nombre += 1
             
         print("\n")

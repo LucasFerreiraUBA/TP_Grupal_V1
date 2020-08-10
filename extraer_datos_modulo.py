@@ -66,7 +66,7 @@ def separar_datos(documentacion):
     """
 
     cant = documentacion.count("[")
-    if cant >= 2:
+    if cant == 2:
         inicio = documentacion.index("[")
         fin = documentacion.index("]")
         dato_1 = documentacion[inicio:fin+1]
@@ -127,7 +127,7 @@ def obtener_autor_ayuda(manual_funcion):
 
     return autor, manual
 
-def extraer_datos(modulo_python, linea_actual):
+def extraer_datos_funcion(modulo_python, linea_actual):
     """[Autor: Javier Acho]
        [Ayuda: Devuelve una estructura de datos que contiene información de la
         función que recibe. La información se extrae del archivo que recibe, a
@@ -146,7 +146,7 @@ def extraer_datos(modulo_python, linea_actual):
     linea_actual = modulo_python.readline()
 
     while linea_actual and not linea_actual.startswith("def "):
-        if "#" in linea_actual and "\"#\"" not in linea_actual:
+        if ("#" in linea_actual) and not ("\"#" in linea_actual or "#\"" in linea_actual):
             linea = linea_actual.rstrip("\n")
             resto, caracter, comentario = linea.partition("#")
             lineas_comentarios.append(caracter + comentario)
@@ -180,7 +180,7 @@ def guardar_datos(arch_programa, nombre_modulo):
     datos_modulo = {}
 
     for rutina in funciones:
-        datos_modulo[rutina], linea = extraer_datos(arch_programa, linea)
+        datos_modulo[rutina], linea = extraer_datos_funcion(arch_programa, linea)
         datos_modulo[rutina]["modulo"] = nombre_modulo
 
     return datos_modulo

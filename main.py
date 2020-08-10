@@ -1,4 +1,4 @@
-import os, crear_ar_csv_merge, generador_arbol_invocaciones, An_Reu_Cod, TPG_parte_5, corte_control, crear_arch_datos_funciones, crear_panel_funciones, consulta_de_funciones
+import os, crear_ar_csv_merge, generador_arbol_invocaciones, An_Reu_Cod, TPG_parte_5, corte_control, crear_arch_panel_gral, crear_panel_funciones, consulta_de_funciones
 
 def borrar_archivos():
     """
@@ -106,7 +106,7 @@ def panel_general():
         arch_funcion_coment = open("comentarios.csv", "r")
         arch_datos_final = open("panel_general.csv", "w")
 
-        crear_arch_datos_funciones.cargar_datos(arch_funcion_codigo, arch_funcion_coment, arch_datos_final, f_error)
+        crear_arch_panel_gral.cargar_datos(arch_funcion_codigo, arch_funcion_coment, arch_datos_final, f_error)
 
         arch_funcion_codigo.close()
         arch_funcion_coment.close()

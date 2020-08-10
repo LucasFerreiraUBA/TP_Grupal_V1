@@ -1,10 +1,10 @@
-#####################################################################################################################################
-# función para calcular canti lineas por función: TPG_parte_5 -> módulo,
-
 import An_Reu_Cod
 
-# Función para armar el diccionario de dependencias
 def generar_dependencias():
+    """
+    [Autor: David DJ Sandoval]
+    [Ayuda: Función para armar el diccionario de dependencias que se utilizará para recorrer el árbol de dependencias]
+    """   
     listaOG = An_Reu_Cod.generador_de_lista_de_funciones()
     listaLL = An_Reu_Cod.generador_de_listas_de_llamadas(listaOG)
     dixTOT = An_Reu_Cod.contador_de_invocaciones(listaOG, listaLL)
@@ -23,10 +23,13 @@ def generar_dependencias():
     return dixDependencis
 
 
-# Función para imprimir el arbol de dependencias
 POS_CAMPO_CANTI_LLAMADAS = 0
 POS_CAMPO_LISTA_INVOCACIS = 1
 def generar_arbol_dependencias():
+    """
+    [Autor: David DJ Sandoval]
+    [Ayuda: Función para imprimir el arbol de dependencias]
+    """
     # arma diccionario de dependencias
     dixDependencias = generar_dependencias()
     # identifica nodos primarios
@@ -56,6 +59,10 @@ def generar_arbol_dependencias():
     return
 
 def imprimir_arbol_dependencias(funcionInvocada, dixDependencias, desplazamientoNodoPrima):
+    """
+    [Autor: David DJ Sandoval]
+    [Ayuda: Función para imprimir los nodos del árbol de dependencias hasta encontrar el nodo que no realice invocaciones a otras funciones]
+    """
     # imprime la función invocada asociado al nodo respectivo
     msjNodo = ' --> ' + funcionInvocada + '(la cantidad de lineas es tanto)'
     print(msjNodo, end = '')

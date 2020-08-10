@@ -18,6 +18,16 @@ def generador_de_lista_de_funciones():
             renglon = None
     fuente_unico.close()
     del renglon, funcion
+    listaOG = chequeo(listaOG)
+    return listaOG
+
+def chequeo(listaOG):
+    posicion = 0
+    for funcion in listaOG:
+        if listaOG[posicion] == listaOG[posicion - 1] and posicion > 0:
+            listaOG.pop(posicion)
+        if posicion < len(listaOG):
+            posicion += 1
     return listaOG
 
 def generador_de_listas_de_llamadas(listaOG):
@@ -205,7 +215,7 @@ def escritor(analiz, listaOG, separador, tab, longitud, dixTOT, dixRec):
         contador = 0
         for funcion2 in listaOG:
             if dixTOT[funcion][contador] > 0 and dixRec[funcion][contador] == 'X':
-                linea += ('|{0:{1}} ').format('{0}/{1}'.format(dixTOT[funcion][contador], dixRec[funcion][contador]), len(str(contador)))
+                linea += ('|{0:{1}}').format('{0}/{1}'.format(dixTOT[funcion][contador], dixRec[funcion][contador]), len(str(contador)))
             elif dixTOT[funcion][contador] > 0:
                 linea += ('| {0:{1}} ').format(dixTOT[funcion][contador], len(str(contador)))
             elif dixRec[funcion][contador] == 'X':

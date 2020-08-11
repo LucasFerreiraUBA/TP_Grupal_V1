@@ -22,6 +22,10 @@ def generador_de_lista_de_funciones():
     return listaOG
 
 def chequeo(listaOG):
+    """
+    [Autor: Lucas M. Diana]
+    [Ayuda: Se fija que no haya repetidas]
+    """
     posicion = 0
     for funcion in listaOG:
         if listaOG[posicion] == listaOG[posicion - 1] and posicion > 0:
@@ -106,8 +110,7 @@ def contador_de_invocaciones(listaOG, listaLL):
         posSub = 0
         sublis = []
         for funcion2 in listaOG:
-            sublis.append(0)      
-            sublis[posSub] = 0            
+            sublis.append(0)          
             for call in listaLL[posLL]:
                 if funcion2 == call:                    
                     sublis[posSub] += 1
@@ -117,7 +120,7 @@ def contador_de_invocaciones(listaOG, listaLL):
     del posLL, funcion, posSub, sublis, funcion2, call
     return dixTOT
 
-def contador_de_llamadas(listaOG, dixTOT): 
+def contador_de_llamadas(dixTOT): 
     """
     [Autor: Lucas M. Diana]
     [Requisitos: listaOG - una lista que contenga el nombre
@@ -130,17 +133,16 @@ def contador_de_llamadas(listaOG, dixTOT):
             (cada campo refiere a una funcion).]
     """
     dixRec = {}
-    pos = 0
-    for recive in listaOG:
-        listaRec = []
-        for envia in dixTOT:
-            if dixTOT[envia][pos] > 0:
-                listaRec.append('X')
+    posicionFuncion = 0
+    for funcion in dixTOT:
+        sublistaDeLlamadas = []
+        for key in dixTOT:
+            if dixTOT[key][posicionFuncion] > 0:
+                sublistaDeLlamadas.append('X')
             else:
-                listaRec.append('O')
-        dixRec[recive] = listaRec
-        pos += 1
-    del pos, recive, listaRec, envia
+                sublistaDeLlamadas.append('O')
+        posicionFuncion += 1
+        dixRec[funcion] = sublistaDeLlamadas
     return dixRec
 
 def txt_maker(listaOG, dixTOT, dixRec):
@@ -259,7 +261,7 @@ def reutilizacion_de_codigo():
         listaOG = generador_de_lista_de_funciones()
         listaLL = generador_de_listas_de_llamadas(listaOG)
         dixTOT = contador_de_invocaciones(listaOG, listaLL)
-        dixRec = contador_de_llamadas(listaOG, dixTOT)
+        dixRec = contador_de_llamadas(dixTOT)
         txt_maker(listaOG, dixTOT, dixRec)
         del listaOG, listaLL, dixRec, dixTOT
         print('analizador.txt creado, leyendo...\n')

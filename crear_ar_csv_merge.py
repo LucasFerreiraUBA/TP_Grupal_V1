@@ -1,4 +1,5 @@
 from extraer_datos_modulo import guardar_datos
+import os
  
 def leer_programas():
     """[Autor: Julian Uño]
@@ -164,11 +165,12 @@ def cantidad_lineas_programastxt():
     return n
 
 def mezclar_nombres(nombre_ar, cadena_modulo1, cadena_modulo2):
-    #agarra el nombre por ej de comentario_modulo1 y comentario_modulo2 y genera comantario_modulo1_modulo2
     """[Autor: Julian Uño]
        [Ayuda: Mezcla los nombres que se usará en el
        tercer parametro de la funcion mezclar_archivos]
     """
+    
+    #agarra el nombre por ej de comentario_modulo1 y comentario_modulo2 y genera comantario_modulo1_modulo2
     
     return nombre_ar + cadena_modulo1 + '_' + cadena_modulo2 + '.csv'
 
@@ -185,8 +187,19 @@ def mezcla_de_comentarios():
     n = cantidad_lineas_programastxt()
     
     while i < (n - 1):
+
+            if n == 2:
+                if '/' in diccionario_programas['programa' + str(i)]:
+                    modulo1 = diccionario_programas['programa' + str(i)].split('/')[-1][:-3]
+                    modulo2 = diccionario_programas['programa' + str(i+1)].split('/')[-1][:-3]
+                else:
+                    modulo1 = diccionario_programas['programa' + str(i)].split('\\')[-1][:-3]
+                    modulo2 = diccionario_programas['programa' + str(i+1)].split('\\')[-1][:-3]
+                #ruta_guardado va a ser el nombre del primer archivo de mezcla de los dos primeros modulos
+                ruta_guardado = 'comentarios.csv'
+                r_mezclado = mezclar_archivos("comentarios_"+ modulo1 + ".csv", "comentarios_" + modulo2 + ".csv", ruta_guardado)
             
-            if i == 0:
+            elif i == 0:
                 if '/' in diccionario_programas['programa' + str(i)]:
                     modulo1 = diccionario_programas['programa' + str(i)].split('/')[-1][:-3]
                     modulo2 = diccionario_programas['programa' + str(i+1)].split('/')[-1][:-3]
@@ -215,6 +228,14 @@ def mezcla_de_comentarios():
                 
             i += 1
 
+    if n== 2:
+        if '/' in diccionario_programas['programa' + str(i)]:
+            modulo = diccionario_programas['programa' + str(i)].split('/')[-1][:-3]
+        else:
+            modulo = diccionario_programas['programa' + str(i)].split('\\')[-1][:-3]
+        ruta_guardado = 'comentarios.csv'
+        os.rename("comentarios_"+ modulo+".csv", ruta_guardado)
+
 def mezcla_de_lineas_codigo():
     """[Autor: Julian Uño]
        [Ayuda: Genera de acuerdo a la cantidad de modulos en programas.txt
@@ -228,8 +249,18 @@ def mezcla_de_lineas_codigo():
     n = cantidad_lineas_programastxt()
     
     while i < (n - 1):
-            
-            if i == 0:
+        
+            if n == 2:
+                if '/' in diccionario_programas['programa' + str(i)]:
+                    modulo1 = diccionario_programas['programa' + str(i)].split('/')[-1][:-3]
+                    modulo2 = diccionario_programas['programa' + str(i+1)].split('/')[-1][:-3]
+                else:                    
+                    modulo1 = diccionario_programas['programa' + str(i)].split('\\')[-1][:-3]
+                    modulo2 = diccionario_programas['programa' + str(i+1)].split('\\')[-1][:-3]
+                ruta_guardado = 'fuente_unico.csv'
+                r_mezclado = mezclar_archivos("fuente_unico_"+ modulo1+".csv", "fuente_unico_" + modulo2 + ".csv",ruta_guardado)
+                
+            elif i == 0:
                 if '/' in diccionario_programas['programa' + str(i)]:
                     modulo1 = diccionario_programas['programa' + str(i)].split('/')[-1][:-3]
                     modulo2 = diccionario_programas['programa' + str(i+1)].split('/')[-1][:-3]
@@ -246,13 +277,21 @@ def mezcla_de_lineas_codigo():
                     modulo = diccionario_programas['programa' + str(i+1)].split('\\')[-1][:-3]
                 ruta_guardado = mezclar_nombres("fuente_unico_", modulo, r_mezclado[14:-3])
                 r_mezclado = mezclar_archivos(r_mezclado, "fuente_unico_"+ modulo+".csv", ruta_guardado)
-                
+
             else:
                 if '/' in diccionario_programas['programa' + str(i+1)]:
                     modulo = diccionario_programas['programa' + str(i+1)].split('/')[-1][:-3]
-                else:                    
+                else:
                     modulo = diccionario_programas['programa' + str(i+1)].split('\\')[-1][:-3]
                 ruta_guardado = 'fuente_unico.csv'
-                r_mezclado = mezclar_archivos(r_mezclado, "fuente_unico_"+ modulo+".csv", ruta_guardado)
+                r_mezclado = mezclar_archivos(r_mezclado, "fuente_unico_"+ modulo + ".csv", ruta_guardado)
                 
             i += 1
+
+    if n == 2:
+        if '/' in diccionario_programas['programa' + str(i)]:
+            modulo = diccionario_programas['programa' + str(i)].split('/')[-1][:-3]
+        else:
+            modulo = diccionario_programas['programa' + str(i)].split('\\')[-1][:-3]
+        ruta_guardado = 'fuente_unico.csv'
+        os.rename("fuente_unico_"+ modulo+".csv", ruta_guardado)

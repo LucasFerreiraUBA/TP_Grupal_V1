@@ -1,3 +1,5 @@
+from crear_ar_csv_merge import grabar_registro
+
 def leer_registro(archivo, fin_arch):
     """[Autor: Javier Acho]
        [Ayuda: Devuelve una cadena que contiene un registro leído del archivo
@@ -10,16 +12,6 @@ def leer_registro(archivo, fin_arch):
 
     linea = archivo.readline()
     return linea.rstrip("\n") if linea else fin_arch
-
-def grabar_registro(archivo, linea):
-    """[Autor: Javier Acho]
-       [Ayuda: Graba un registro en el archivo que recibe.
-        La cadena de caracteres que recibe contiene la información que se escribe
-        en el archivo.
-        El archivo debe estar abierto en modo escritura.]
-    """
-
-    archivo.write(f"{linea}\n")
 
 def procesar_codigo(registro, fin_arch):
     """[Autor: Javier Acho]
@@ -231,8 +223,8 @@ def cargar_datos(arch_codigo, arch_comentarios, arch_reporte, ultimo):
         
         # se utiliza los datos de arch_comentarios
         cant_comentarios = contar_comentarios(coment)
-        ayuda = "No" if "Ausente" in manual else "Si"
         nombre_autor = extraer_autor(autor)
+        ayuda = "No" if "Ausente" in nombre_autor else "Si"
 
         nuevo_registro = f"{funcion_rep},{cant_param},{cant_lineas},{cant_invoc}"\
                          f",{cant_return},{cant_if_elif},{cant_for},{cant_while}"\

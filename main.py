@@ -1,4 +1,4 @@
-import os, crear_ar_csv_merge, generador_arbol_invocaciones, An_Reu_Cod, TPG_parte_5, corte_control, crear_arch_panel_gral, crear_panel_funciones, consulta_de_funciones
+import os, crear_ar_csv_merge, generador_arbol_invocaciones, TPG_parte_5, An_Reu_Cod, corte_control, crear_arch_panel_gral, crear_panel_funciones, consulta_de_funciones
 
 def borrar_archivos():
     """
@@ -16,7 +16,8 @@ def borrar_archivos():
         os.remove("parte_5.csv")
     if os.path.isfile("ayuda_funciones.txt"):
         os.remove("ayuda_funciones.txt")
-
+    if os.path.isfile("ayuda_funciones.txt"):
+        os.remove("ayuda_funciones.txt")
 
 def main():
     """
@@ -47,7 +48,7 @@ def main():
                 generador_arbol_invocaciones.generar_arbol_dependencias()
                 valor = None
             if valor == '5':
-                TPG_parte_5.ejecutar()
+                TPG_parte_5.crear_archivo(TPG_parte_5.ordenar_por_autor())
                 corte_control.main_control()
                 valor = None
             if valor == '6':
@@ -123,7 +124,11 @@ def limpieza():
     for archivo in lista_directorio:
         if archivo.startswith(tipo_de_limp[0]) or archivo.startswith(tipo_de_limp[1]):
             os.remove(archivo)
-        
+
+if os.path.exists('fuente_unico.csv'):
+    os.remove('fuente_unico.csv')
+if os.path.exists('comentarios.csv'):
+    os.remove('comentarios.csv')
 crear_ar_csv_merge.generar_par_archivos_modulo()
 crear_ar_csv_merge.mezcla_de_lineas_codigo()
 crear_ar_csv_merge.mezcla_de_comentarios()
